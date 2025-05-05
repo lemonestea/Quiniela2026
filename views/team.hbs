@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang='es'>
+    <head>
+
+        <meta charset='UTF-8'>
+        <link rel='stylesheet' href='/style.css'>
+        <link rel='icon' href='/img/wctrophy.png' type='image/png'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' >
+        
+        <title>Mundial 2026</title>
+
+    </head>
+    <body>
+        <nav class="nav-bar">
+            <a href="/">
+            <img src='/img/wctrophy.png' height="50px" style="margin-left: 15px;">
+            </a>
+            <ul class="menu-links">
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/teams">Equipos</a></li>
+                <li><a href="/profile" style="margin:0;">{{username}}</a></li>
+                <li><a href="/auth/logout">Cerrar sesión</a></li>
+                <li><a href="/play">Jugar</a>
+                <li><a href="/leaderboard">Tabla</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-nav-bar">
+            <a href="/"><img id="home" src="/img/icons/home.png" alt="home"><label>Inicio</label></a>
+            <a href="/play"><img src="/img/icons/play.png" alt="play"><label>Jugar</label></a>
+            <a href="/leaderboard"><img src="/img/icons/leaderboard.png" alt="leaderboard"><label>Tabla</label></a>
+            <a href="/teams"><img src="/img/icons/teams_active.png" alt="teams"><label class="menu-active">Equipos</label></a>
+            <a href="/profile"><img src="/img/icons/perfil.png" alt="perfil"><label>Perfil</label></a>
+        </div>
+        <div class="container bold">
+            
+            <img src="/img/flags/{{team.short_name}}.png"
+            onerror="this.src='/img/flags/por_definir.png';"
+            height="80px"
+            alt="Bandera de {{team.name}}">
+            <h1 style="margin-top:10px; margin-bottom:0;">{{team.name}}</h1>
+            <h2 style="margin-bottom:0; margin-top:0; color:rgb(174, 174, 174); font-size: 18px;">({{team.short_name}})</h2>
+            <p>Grupo {{team.team_group}}</p>
+            <div class="matches">
+                {{#each partidos}}
+                <div class="match">
+
+                <div>{{this.team1_name}}</div>
+                {{#if (isDefined this.goles1)}}
+                    <div class="score">
+                        {{this.goles1}}
+                    {{#if (isNotNull this.penales1)}}
+                    ({{this.penales1}})
+                    {{/if}}
+                    </div>
+                {{else}}
+                    <div class="score"></div>
+                {{/if}}
+
+                <div class="fase_team">
+                    {{#if (eq this.fase "TERCER_PUESTO")}}
+                    Tercer Puesto
+                    {{else if (eq this.fase "FDG")}}
+                    Fase de Grupo
+                    {{else}}
+                    {{capitalize this.fase}}
+                    {{/if}}
+                </div>
+
+                <div>{{this.team2_name}}</div>
+                {{#if (isDefined this.goles2)}}
+                    <div class="score">
+                        {{this.goles2}}
+                        {{#if (isNotNull this.penales2)}}
+                        ({{this.penales2}})
+                        {{/if}}
+                    </div>
+                    
+                {{else}}
+                    <div class="score"></div>
+                {{/if}}
+
+                <div class="fecha">{{formatDate fecha}}</div>
+                
+                </div>
+
+                <div class="stadium">{{stadium}}</div>
+                {{/each}}
+            </div>
+        </div>
+    </body>
+</html>

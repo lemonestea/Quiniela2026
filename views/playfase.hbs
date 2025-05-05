@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang='es'>
+    <head>
+
+        <meta charset='UTF-8'>
+        <link rel='stylesheet' href='/style.css'>
+        <link rel='icon' href='/img/wctrophy.png' type='image/png'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' >
+        
+        <title>Mundial 2026</title>
+        <script>
+            function checkLength(event) {
+                let input = event.target;
+                
+                if (event.key === "Tab") {
+                    return;
+                }
+                // Si la longitud del valor actual es 2 o más, previene la entrada de más caracteres
+                if (input.value.length >= 2 && event.key !== "Backspace" && event.key !== "Delete") {
+                    event.preventDefault();
+                    
+                }
+            }
+
+            function activarPenales(index) {
+                const goles1 = document.getElementById("goles1_" + index);
+                const goles2 = document.getElementById("goles2_" + index);
+                const penalesContainer = document.getElementById("penales_" + index); // Contenedor de penales
+                const penales1 = document.getElementById("penales1_" + index);
+                const penales2 = document.getElementById("penales2_" + index);
+
+                if (goles1.value === goles2.value && goles1.value !== "" && goles2.value !== "") {
+                    penales1.readOnly = false;
+                    penales2.readOnly = false;
+                    penales1.required = true;
+                    penales2.required = true;
+                    penalesContainer.classList.add("show"); // Mostrar con animación
+                } else {
+                    penales1.readOnly = true;
+                    penales2.readOnly = true;
+                    penales1.required = false;
+                    penales2.required = false;
+                    penalesContainer.classList.remove("show"); // Ocultar con animación
+                }
+            }
+
+
+            function loadrandom(){
+                const golesInputs = document.querySelectorAll('input[name="team1_goles"], input[name="team2_goles"]');
+                const penalesInputs = document.querySelectorAll('input[name="team1_penales"], input[name="team2_penales"]');
+
+                // Para hacer algo con cada input, puedes usar forEach
+                golesInputs.forEach(input => {
+                    input.value = Math.floor(Math.random() * 5);
+                    input.dispatchEvent(new Event('change', { bubbles: true })); // Fuerza que el evento onchange se ejecute
+                });
+
+                // Espera un poco para que activarPenales() actualice el readonly en los penales antes de asignar valores
+                setTimeout(() => {
+                    penalesInputs.forEach(input => {
+                        if (!input.readOnly) {
+                            input.value = Math.floor(Math.random() * 5);
+                        }
+                    });
+                }, 10);
+            }
+
+            function canNotBeSame(index) {
+                const penales1 = document.getElementById("penales1_" + index);
+                const penales2 = document.getElementById("penales2_" + index);
+
+                const val1 = parseInt(penales1.value, 10);
+                const val2 = parseInt(penales2.value, 10);
+
+                if (!isNaN(val1) && !isNaN(val2) && val1 === val2) {
+                    penales1.value = "";
+                    penales2.value = "";
+                    alert("Los penales no pueden quedar en empate!");
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+        <nav class="nav-bar">
+            <a href="/">
+            <img src='/img/wctrophy.png' height="50px" style="margin-left: 15px;">
+            </a>
+            <ul class="menu-links">
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/teams">Equipos</a></li>
+                <li><a href="/profile" style="margin:0;">{{username}}</a></li>
+                <li><a href="/auth/logout">Cerrar sesión</a></li>
+                <li><a href="/play">Jugar</a>
+                <li><a href="/leaderboard">Tabla</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-nav-bar">
+            <a href="/"><img id="home" src="/img/icons/home.png" alt="home"><label>Inicio</label></a>
+            <a href="/play"><img src="/img/icons/play_active.png" alt="play"><label class="menu-active">Jugar</label></a>
+            <a href="/leaderboard"><img src="/img/icons/leaderboard.png" alt="leaderboard"><label>Tabla</label></a>
+            <a href="/teams"><img src="/img/icons/teams.png" alt="teams"><label>Equipos</label></a>
+            <a href="/profile"><img src="/img/icons/perfil.png" alt="perfil"><label>Perfil</label></a>
+        </div>
+        <div class="container bold">
+            <h1>Envía tus Resultados</h1>
+            <form action="/sendQuiniela/{{fase}}" method="POST" class="partidos">
+                <input type="hidden" name="fase" value={{fase}}>
+                {{#each partidos}}
+                    <input type="hidden" name="partido_id" value={{this.partido_id}}>
+                    <input type="hidden" name="team1_id" value={{this.team1_id}}>
+                    <input type="hidden" name="team2_id" value={{this.team2_id}}>
+                        <img class="game start" src="/img/flags/{{toLowerCase this.team1_shortname}}.png" 
+                        onerror="this.src='/img/flags/por_definir.png';"
+                        height="50px" width="50px">
+                        <div class="game middle">
+                            {{this.team1_shortname}}
+                        </div>
+                     
+                    <input class="team1" onkeydown="checkLength(event)" onchange="activarPenales({{@index}})" 
+                    oninput="activarPenales({{@index}})" type="number" type="tel" inputmode="numeric" pattern="[0-9]*"
+                    name="team1_goles" id="goles1_{{@index}}" required>
+
+                    <div class="game">-</div>
+
+                    <input class="team2"  onkeydown="checkLength(event)" onchange="activarPenales({{@index}})"
+                    oninput="activarPenales({{@index}})" type="number" type="tel" inputmode="numeric" pattern="[0-9]*"
+                    name="team2_goles" id="goles2_{{@index}}" required>
+
+                    <div class="game middle">{{this.team2_shortname}}</div>
+                    <img class="game end" src="/img/flags/{{toLowerCase this.team2_shortname}}.png" 
+                        onerror="this.src='/img/flags/por_definir.png';"
+                        height="40px" width="40px">
+                        {{#if (eq ../fase "FDG")}}
+                            
+                        {{else}}
+                            <div id="penales_{{@index}}" class="penales-container">
+                                <div class="penales"></div>
+                                <div class="penales">Pen.</div>
+                                <input class="team1 penales" oninput="checkLength(event); canNotBeSame({{@index}});" 
+                                    type="number" name="team1_penales" id="penales1_{{@index}}"
+                                    type="tel" inputmode="numeric" pattern="[0-9]*" readonly>
+
+                                <div class="penales">-</div>
+
+                                <input class="team2 penales" oninput="checkLength(event); canNotBeSame({{@index}});" 
+                                    type="number" name="team2_penales" id="penales2_{{@index}}" 
+                                    type="tel" inputmode="numeric" pattern="[0-9]*" readonly>
+                                <div class="penales"></div>
+                            </div>
+
+
+                        {{/if}}
+                {{/each}}
+                <input id="quiniela-submit" type="submit" value="ENVIAR">
+            </form>
+            <button onclick="loadrandom()">RANDOM</button>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang='es'>
+    <head>
+
+        <meta charset='UTF-8'>
+        <link rel='stylesheet' href='/style.css'>
+        <link rel='icon' href='/img/wctrophy.png' type='image/png'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' >
+        
+        <title>Mundial 2026</title>
+
+    </head>
+    <body>
+        <nav class="nav-bar">
+            <a href="/">
+            <img src='/img/wctrophy.png' height="50px" style="margin-left: 15px;">
+            </a>
+            <ul class="menu-links">
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/teams">Equipos</a></li>
+                <li><a href="/profile" style="margin:0;">{{username}}</a></li>
+                <li><a href="/auth/logout">Cerrar sesión</a></li>
+                <li><a href="/play">Jugar</a>
+                <li><a href="/leaderboard">Tabla</a></li>
+            </ul>
+
+        </nav>
+        <div class="mobile-nav-bar">
+            <a href="/"><img id="home" src="/img/icons/home.png" alt="home"><label>Inicio</label></a>
+            <a href="/play"><img src="/img/icons/play.png" alt="play"><label>Jugar</label></a>
+            <a href="/leaderboard"><img src="/img/icons/leaderboard.png" alt="leaderboard"><label>Tabla</label></a>
+            <a href="/teams"><img src="/img/icons/teams.png" alt="teams"><label>Equipos</label></a>
+            <a href="/profile"><img src="/img/icons/perfil_active.png" alt="perfil"><label class="menu-active">Perfil</label></a>
+        </div>
+        <div class="container">
+            
+            <div class="equipos">
+                <div>
+                <img src="/img/flags/{{toLowerCase data.team1_short_name}}.png" width="100px">
+                {{data.team1_short_name}}
+                </div>
+                <div>VS</div>
+                <div>
+                <img onerror="/img/flags/por_definir.png" src="/img/flags/{{toLowerCase data.team2_short_name}}.png" width="100px">
+                {{data.team2_short_name}}
+                </div>
+            </div>
+            <h2>Desglose de puntos</h2>
+            <div class="quiniela-real">
+                <div class="font-18 bold bg-black width-100 pd-10">Equipo</div>
+                <div class="font-18 bold bg-black width-100 pd-10">Quiniela</div>
+                <div class="font-18 bold bg-black width-100 pd-10">Resultado</div>
+                
+                <div class="bold width-100 bg-grey pd-10">{{data.team1_name}}</div>
+                <div class="bold width-100 bg-grey pd-10">{{data.b_goles1}}
+                    {{#if (isNotNull data.b_penales1)}}
+                    ({{data.b_penales1}})
+                    {{/if}}
+                </div>
+                <div class="bold width-100 bg-grey pd-10">{{data.r_goles1}}
+                    {{#if (isNotNull data.r_penales1)}}
+                    ({{data.r_penales1}})
+                    {{/if}}
+                </div>
+
+                <div class="bold width-100 bg-lightgrey pd-10">{{data.team2_name}}</div>
+                <div class="bold width-100 bg-lightgrey pd-10">{{data.b_goles2}}
+                    {{#if (isNotNull data.b_penales2)}}
+                    ({{data.b_penales2}})
+                    {{/if}}
+                </div>
+                <div class="bold width-100 bg-lightgrey pd-10">{{data.r_goles2}}
+                    {{#if (isNotNull data.r_penales2)}}
+                    ({{data.r_penales2}})
+                    {{/if}}
+                </div>
+            </div>
+            <div class="grid-desglose">
+                {{#if (eq data.b_ganador data.r_ganador)}}
+                    
+                <span class="bg-lightgrey green bold width-100 pd-10">Resultado correcto</span>
+                <div class="bg-lightgrey width-100 pd-10">{{data.b_ganador}}</div>
+                <span class="bg-lightgrey green bold width-100 pd-10">+{{data.puntos_por_resultado}}</span>
+
+                {{else}}
+
+                <span class="bg-lightgrey lightgrey bold width-100 pd-10">Resultado incorrecto</span>
+                <div class="bg-lightgrey width-100 pd-10">{{data.r_ganador}}</div>
+                <span class="bg-lightgrey lightgrey bold width-100 pd-10">+0</span>
+
+                {{/if}}
+
+                {{#if (eq data.b_goles1 data.r_goles1)}}
+                
+                    <span class="bg-grey pd-10 green bold width-100">Marcador correcto</span>
+                    <div class="bg-grey pd-10 width-100">Goles de {{data.team1_short_name}}</div>
+                    <span class="bg-grey pd-10 green bold width-100">+{{data.puntos_por_goles}}</span>
+                
+                {{else}}
+
+                    <span class="bg-grey lightgrey pd-10 bold width-100">Marcador incorrecto</span>
+                    <div class="bg-grey width-100 pd-10">Goles de {{data.team1_short_name}}</div>
+                    <span class="bg-grey red bold width-100 pd-10">+0</span>
+                
+                {{/if}}
+
+                {{#if (eq data.b_goles2 data.r_goles2)}}
+                
+                    <span class="bg-lightgrey green bold width-100 pd-10">Marcador correcto</span>
+                    <div class="bg-lightgrey width-100 pd-10">Goles de {{data.team2_short_name}}</div>
+                    <span class="bg-lightgrey green bold width-100 pd-10">+{{data.puntos_por_goles}}</span>
+                
+                {{else}}
+                
+                <span class="bg-lightgrey lightgrey bold width-100 pd-10">Marcador incorrecto</span>
+                <div class="bg-lightgrey width-100 pd-10">Goles de {{data.team2_short_name}}</div>
+                <span class="bg-lightgrey red bold width-100 pd-10">+0</span>
+                
+                {{/if}}
+        </div>
+        <a href="/misQuinielas/{{data.fase}}" class="go-back">Volver</a>
+    </body>
+</html>

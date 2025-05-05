@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang='es'>
+    <head>
+
+        <meta charset='UTF-8'>
+        <link rel='stylesheet' href='/style.css'>
+        <link rel='icon' href='/img/wctrophy.png' type='image/png'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' >
+        
+        <title>Mundial 2026</title>
+    </head>
+    <body>
+        <nav class="nav-bar">
+            <a href="/">
+            <img src='/img/wctrophy.png' height="50px" style="margin-left: 15px;">
+            </a>
+            <ul class="menu-links">
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/teams">Equipos</a></li>
+                <li><a href="/profile" style="margin:0;">{{username}}</a></li>
+                <li><a href="/auth/logout">Cerrar sesión</a></li>
+                <li><a href="/play">Jugar</a>
+                <li><a href="/leaderboard">Tabla</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-nav-bar">
+            <a href="/"><img id="home" src="/img/icons/home.png" alt="home"><label>Inicio</label></a>
+            <a href="/play"><img src="/img/icons/play_active.png" alt="play"><label class="menu-active">Jugar</label></a>
+            <a href="/leaderboard"><img src="/img/icons/leaderboard.png" alt="leaderboard"><label>Tabla</label></a>
+            <a href="/teams"><img src="/img/icons/teams.png" alt="teams"><label>Equipos</label></a>
+            <a href="/profile"><img src="/img/icons/perfil.png" alt="perfil"><label>Perfil</label></a>
+        </div>
+        <div class="container bold">
+        <div id="jugadores">
+            {{#if players_selected}}
+                
+            {{else}} 
+                <h2>Elige a tus Jugadores</h2>
+                <form id="seleccionar_jugadores" action="/load_max_goleador" method="POST">
+                    <select class="select_player" name="maximo_goleador" id="maximo_goleador">
+                            <option disabled selected value="">Máximo Goleador</option>
+                        {{#each players}}
+                            <option value="{{id}}">{{name}} ({{short_name}})</option>
+                        {{/each}}
+                    </select>
+                    
+                    <select class="select_player" name="maximo_asistidor" id="maximo_asistidor">
+                        <option disabled selected value="">Máximo Asistidor</option>
+                        {{#each players}}
+                            <option value="{{id}}">{{name}} ({{short_name}})</option>
+                        {{/each}}
+                    </select>
+
+                    <select class="select_player" name="mejor_jugador" id="mejor_jugador">
+                        <option disabled selected value="">Mejor Jugador</option>
+                        {{#each players}}
+                            <option value="{{this.id}}">{{this.name}} ({{short_name}})</option>
+                        {{/each}}
+                    </select>
+
+                    <select class="select_player" name="mejor_portero" id="mejor_portero">
+                        <option disabled selected value="">Mejor Portero</option>
+                        {{#each porteros}}
+                            <option value="{{this.id}}">{{this.name}} ({{short_name}})</option>
+                        {{/each}}
+                    </select>
+                 
+                    <input id="send-jugadores" type="submit" value="Enviar">
+                </form>
+            {{/if}}
+        </div>
+
+        <div id="partidos">
+            <h2>Partidos</h2>
+            <div class="colores-indicadores">
+                <div class="verde"></div>
+                <div class="azul"></div>
+                <div class="gris"></div>
+                <div class="texto-pequeno">Abierto</div>
+                <div class="texto-pequeno">Enviado</div>
+                <div class="texto-pequeno">Cerrado</div>
+            </div>
+            {{#if FDG_SENT}}
+                <div class="azul enviado">Fase de Grupos</div>
+            {{else if FDG }}
+                <a class="verde" href="/play/FDG">Fase de Grupos</a>
+            {{else}}
+                <div class="azul cerrado">Fase de Grupos</div>
+            {{/if}}
+
+            {{#if R32_SENT}}
+                <div class="azul enviado">Dieciseisavos</div>
+            {{else if R32 }}
+                <a class="verde" href="/play/16VOS">Dieciseisavos</a>
+            {{else}}
+                <div class="gris cerrado">Dieciseisavos</div>
+            {{/if}}
+
+            {{#if R16_SENT}}
+                <div class="azul enviado">Octavos</div>
+            {{else if R16 }}
+                <a class="verde" href="/play/OCTAVOS">Octavos</a>
+            {{else}}
+                <div class="gris cerrado">Octavos</div>
+            {{/if}}
+
+            {{#if R8_SENT}}
+                <div class="azul enviado">Cuartos</div>
+            {{else if R8 }}
+                <a class="verde" href="/play/CUARTOS">Cuartos</a>
+            {{else}}
+                <div class="gris cerrado">Cuartos</div>
+            {{/if}}
+
+            {{#if SF_SENT}}
+                <div class="azul enviado">Semifinales</div>
+            {{else if SF }}
+                <a class="verde" href="/play/SEMIS">Semifinales</a>
+            {{else}}
+                <div class="gris cerrado">Semifinales</div>
+            {{/if}}
+
+            {{#if TP_SENT}}
+                <div class="azul enviado">Tercer Puesto</div>
+            {{else if TP }}
+                <a class="verde" href="/play/TERCER_PUESTO">Tercer Puesto</a>
+            {{else}}
+                <div class="gris cerrado">Tercer Puesto</div>
+            {{/if}}
+
+            {{#if F_SENT}}
+                <div class="azul enviado">Final</div>
+            {{else if F }}
+                <a class="verde" href="/play/FINAL">Final</a>
+            {{else}}
+                <div class="gris cerrado">Final</div>
+            {{/if}}
+
+        </div>
+
+        </div>
+        <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('seleccionar_jugadores');
+    console.log(form)
+    if (!form) {
+      console.warn("Formulario no encontrado.");
+      return;
+    }
+
+    form.addEventListener('submit', function(event) {
+      const campos = ['maximo_goleador', 'maximo_asistidor', 'mejor_jugador', 'mejor_portero'];
+      let formValido = true;
+
+      campos.forEach(function(idCampo) {
+        const select = document.getElementById(idCampo);
+        
+        if (!select || select.value === "") {
+          formValido = false;
+          if (select) {
+            select.style.border = "2px solid red";
+          }
+        } else {
+          select.style.border = "";
+        }
+      });
+
+      if (!formValido) {
+        event.preventDefault();
+        alert("Por favor, selecciona una opción válida en todos los campos.");
+      }
+    });
+  });
+
+</script>
+
+    </body>
+</html>

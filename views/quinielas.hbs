@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang='es'>
+    <head>
+
+        <meta charset='UTF-8'>
+        <link rel='stylesheet' href='/style.css'>
+        <link rel='icon' href='/img/wctrophy.png' type='image/png'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' >
+        
+        <title>Mundial 2026</title>
+
+    </head>
+    <body>
+        <nav class="nav-bar">
+            <a href="/">
+            <img src='/img/wctrophy.png' height="50px" style="margin-left: 15px;">
+            </a>
+            <ul class="menu-links">
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/teams">Equipos</a></li>
+                <li><a href="/profile" style="margin:0;">{{username}}</a></li>
+                <li><a href="/auth/logout">Cerrar sesión</a></li>
+                <li><a href="/play">Jugar</a>
+                <li><a href="/leaderboard">Tabla</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-nav-bar">
+            <a href="/"><img id="home" src="/img/icons/home.png" alt="home"><label>Inicio</label></a>
+            <a href="/play"><img src="/img/icons/play.png" alt="play"><label>Jugar</label></a>
+            <a href="/leaderboard"><img src="/img/icons/leaderboard.png" alt="leaderboard"><label>Tabla</label></a>
+            <a href="/teams"><img src="/img/icons/teams.png" alt="teams"><label>Equipos</label></a>
+            <a href="/profile"><img src="/img/icons/perfil_active.png" alt="perfil"><label class="menu-active">Perfil</label></a>
+        </div>
+        <div class="container">
+            {{#if quinielas}}
+            <p class="small-title">Puntos en esta fase: <span>{{puntos}}</span></p>
+                <div class="titulos">
+                    <div>Quiniela</div>
+                    <div></div>
+                    <div>Resultado</div>
+                </div>
+                {{#each quinielas}}
+                    <div class="quiniela">
+                    <div class="partido">
+                        <div>{{this.team1}}</div>
+                        {{#if (isNotNull this.penales1)}}
+                        <div class="penales-quiniela">({{this.penales1}})</div>
+                        {{else}}
+                        <div></div>
+                        {{/if}}
+                        <div class="score">{{this.goles1}}</div>
+                        
+                        <div>{{this.team2}}</div>
+                        {{#if (isNotNull this.penales2)}}
+                        <div class="penales-quiniela">({{this.penales2}})</div>
+                        {{else}}
+                        <div></div>
+                        {{/if}}
+                        <div class="score">{{this.goles2}}</div>
+                    </div>
+                    <div class="result-real">
+                        {{#if (isNotNull this.r_penales1)}}
+                        <div class="penales-real">({{this.r_penales1}})</div>
+                        {{else}}
+                        <div></div>
+                        {{/if}}
+
+                        {{#if (isNotNull this.r_goles1)}}
+                        <div class="score-real">{{this.r_goles1}}</div>
+                        {{else}}
+                        <div></div>
+                        {{/if}}
+
+                        {{#if (isNotNull this.r_penales2)}}
+                        <div class="penales-real">({{this.r_penales2}})</div>
+                        {{else}}
+                        <div></div>
+                        {{/if}}
+
+                        {{#if (isNotNull this.r_goles2)}}
+                        <div class="score-real">{{this.r_goles2}}</div>
+                        {{else}}
+                        <div></div>
+                        {{/if}}
+                    </div>
+                    {{#if (isNotNull this.puntos)}}
+                    {{#if this.puntos}}
+                    <a href="/match/{{this.id}}" class="puntos-quiniela">{{this.puntos}}</a>
+                    {{else}}
+                    <a href="/match/{{this.id}}" class="no-point-quiniela">{{this.puntos}}</a>
+                    {{/if}}
+                    {{else}}
+                    <div class="no-point-quiniela">N/A</div>
+                    {{/if}}
+                    </div>
+                {{/each}}
+                <a class="go-back" href="/misQuinielas">Ir atrás</a>
+            {{else}}
+                {{#if quinielasNotSent}}
+                    <div>Aún no has enviado esta Quiniela</div>
+                    <a class="go-back" href="/misQuinielas">Ir atrás</a>
+                {{else}}
+                    Selecciona una Fase del Mundial
+                    <div class="links-quinielas">
+                        <a href="/misQuinielas/FDG">Fase de Grupos</a>
+                        <a href="/misQuinielas/16VOS">Dieciseisavos</a>
+                        <a href="/misQuinielas/OCTAVOS">Octavos</a>
+                        <a href="/misQuinielas/CUARTOS">Cuartos</a>
+                        <a href="/misQuinielas/SEMIS">Semifinales</a>
+                        <a href="/misQuinielas/TERCER_PUESTO">Tercer Puesto</a>
+                        <a href="/misQuinielas/FINAL">Final</a>
+                    </div>
+                {{/if}}
+            {{/if}}
+        </div>
+    </body>
+</html>

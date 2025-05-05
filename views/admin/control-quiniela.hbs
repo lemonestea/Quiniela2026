@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang='es'>
+    <head>
+
+        <meta charset='UTF-8'>
+        <link rel='stylesheet' href='/admin.css'>
+        <link rel='icon' href='/img/wctrophy.png' type='image/png'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' >
+        
+        <title>ADMIN</title>
+
+    </head>
+    <body>
+        <a class="rojo exit" href="/admin-amrdq12s">EXIT</a>
+        <div class="links-dashboard">
+        {{#each fases}}
+        <form class="control-quinielas" action="/admin-amrdq12s/quiniela-controles/{{this.fase}}" method="POST">
+            <input type="submit" value="{{this.fase}}" name="fase">
+            {{#if (eq this.abierta 1)}}
+            <label class="verde">ABIERTO</label>
+            {{/if}}
+
+            {{#if (eq this.abierta 0)}}
+            <label class="rojo">CERRADO</label>
+            {{/if}}
+        </form>
+        {{/each}}
+        </div>
+    </body>
+</html>

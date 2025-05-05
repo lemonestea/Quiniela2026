@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang='es'>
+    <head>
+
+        <meta charset='UTF-8'>
+        <link rel='stylesheet' href='/admin.css'>
+        <link rel='icon' href='/img/wctrophy.png' type='image/png'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' >
+        
+        <title>ADMIN</title>
+        <script>
+        function confirmarBorrado() {
+            return confirm("¿Estás seguro de que quieres borrar todas las quinielas?");
+        }
+        function confirmarCrearRandom() {
+            return confirm(`¿Estás seguro de que quieres crear quinielas aleatoriamente?
+Se reemplazarán las que ya han enviado los jugadores.`)
+        }
+        </script>
+    </head>
+    <body>
+        <a class="rojo exit" href="/admin-amrdq12s">EXIT</a>
+        <div class="links-commands">
+            <a id="precaucion" href="/admin-amrdq12s/borrar-todas-las-quinielas" 
+            class="rojo" onclick="return confirmarBorrado()">BORRAR TODO</a>
+            <a href="/admin-amrdq12s/crear-quinielas-random"
+            class="verde" onclick="return confirmarCrearRandom()">CREAR QUINIELAS</a>
+        </div>
+        <div class="quinielas-container">
+            
+        {{#each users}}
+            <div class="user-quinielas">
+            <div>{{this.user}}</div>
+            <input type="text" readonly value="ID: {{this.usuario_id}}">
+            <br>
+            {{#each this.fases}}
+                <form class="quinielas-jugadores" action="/admin-amrdq12s/jugadores-quiniela/{{this}}" method="POST">
+                    <input type="text" readonly name="fase" value="{{this}}">
+                    <input type="hidden" name="usuario_id" value="{{../this.usuario_id}}">
+                    <input id="delete" type="submit" value="Borrar">
+                </form>
+            {{/each}}
+            </div>
+        {{/each}}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang='es'>
+    <head>
+
+        <meta charset='UTF-8'>
+        <link rel='stylesheet' href='/admin.css'>
+        <link rel='icon' href='/img/wctrophy.png' type='image/png'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' >
+        
+        <title>ADMIN</title>
+
+    </head>
+    <body>
+        
+        <div class="links-container">
+            {{#if games}}
+            <div class="exit rojo">
+                <a href="/admin-amrdq12s/games">Volver</a>
+            </div>
+            <div class="center-container">
+                {{#each games}}
+                <form class="game" method="POST" action="/admin-amrdq12s/cambiarPartido/{{id}}">
+                    <input type="hidden" name="fase" value="{{@root.fase}}">
+                    {{#if this.team1_name}}
+                    <div>{{this.team1_name}}</div>
+                    <input type="hidden" name="team1_id" value="{{this.team1_id}}">
+                    {{else}}
+                        <select name="team1_id">
+                            <option value="" disabled selected>Elige equipo</option>
+                            {{#each @root.teams}}
+                            <option value="{{this.id}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                    {{/if}}
+                    <div>{{this.goles1}}</div>
+                    <div>{{this.goles2}}</div>
+                    {{#if this.team2_name}}
+                    <div>{{this.team2_name}}</div>
+                    <input type="hidden" name="team2_id" value="{{this.team2_id}}">
+                    {{else}}
+                    <select name="team2_id">
+                        <option value="" disabled selected>Elige equipo</option>
+                        {{#each @root.teams}}
+                        <option value="{{this.id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                    {{/if}}
+                    <div id="{{id}}">id: {{id}}</div>
+                    <div>{{penales1}}</div>
+                    <div>{{penales2}}</div>
+                    <div></div>
+                    <input type="submit" id="update" name="control" value="update">
+                    <input type="submit" id="remove" name="control" value="remove">
+                </form>
+                {{/each}}
+            </div>
+            {{else}}
+            <div class="exit rojo">
+                <a href="/admin-amrdq12s">Ir al Inicio</a>
+            </div>
+            <a href="/admin-amrdq12s/games/FDG">Fase de grupos</a>
+            <a href="/admin-amrdq12s/games/16VOS">16VOS</a>
+            <a href="/admin-amrdq12s/games/OCTAVOS">8VOS</a>
+            <a href="/admin-amrdq12s/games/CUARTOS">4TOS</a>
+            <a href="/admin-amrdq12s/games/SEMIS">SEMIS</a>
+            <a href="/admin-amrdq12s/games/TERCER_PUESTO">Tercer puesto</a>
+            <a href="/admin-amrdq12s/games/FINAL">FINAL</a>
+            {{/if}}
+        </div>
+    </body>
+</html>

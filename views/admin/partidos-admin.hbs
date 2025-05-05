@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang='es'>
+    <head>
+
+        <meta charset='UTF-8'>
+        <link rel='stylesheet' href='/admin.css'>
+        <link rel='icon' href='/img/wctrophy.png' type='image/png'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' >
+        
+        <title>ADMIN</title>
+
+    </head>
+    <body>
+        <a href="/admin-amrdq12s/meter-resultados">Go Back</a>
+        <a class="random" href="/admin-amrdq12s/random/{{fase}}">RANDOM</a>
+        <a class="rojo" href="/admin-amrdq12s/deleteAll/{{fase}}">DELETE ALL</a>
+        <h1>{{fase}}</h1>
+        <div class="columnas">
+            <div>T1</div>
+            <div>P1</div>
+            <div>G1</div>
+            <div>G2</div>
+            <div>P2</div>
+            <div>T2</div>
+            <div>SEND</div>
+            <div>DEL</div>
+        </div>
+        {{#each partidos}}
+            <form class="partido" action="/admin-amrdq12s/cargar/{{@root.fase}}" method="POST">
+                <input type="hidden" name="partido_id" value="{{this.partido_id}}">
+                <div>{{this.team1_shortname}}</div>
+
+                {{#if (isNotNull this.penales1)}}
+                <input class="input-goles set" type="text" name="penales1" value="{{this.penales1}}" readonly>
+                {{else}}
+                <input class="input-goles" type="text" name="penales1">
+                {{/if}}
+
+                {{#if (isNotNull this.goles1)}}
+                <input class="input-goles set" type="text" name="goles1" value="{{this.goles1}}" readonly>
+                {{else}}
+                <input class="input-goles" type="text" name="goles1">
+                {{/if}}
+
+
+                
+
+                {{#if (isNotNull this.goles2)}}
+                <input class="input-goles set" type="text" name="goles2" value="{{this.goles2}}" readonly>
+                {{else}}
+                <input class="input-goles" type="text" name="goles2">
+                {{/if}}
+
+                {{#if (isNotNull this.penales2)}}
+                <input class="input-goles set" type="text" name="penales2" value="{{this.penales2}}" readonly>
+                {{else}}
+                <input class="input-goles" type="text" name="penales2">
+                {{/if}}
+                <div>{{this.team2_shortname}}</div>
+
+                <input type="submit" name="action" value="GO">
+                <input id="delete" name="action" type="submit" value="DEL">
+            </form>
+        {{/each}}
+    </body>
+</html>

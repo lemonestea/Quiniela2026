@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang='es'>
+    <head>
+
+        <meta charset='UTF-8'>
+        <link rel='stylesheet' href='/style.css'>
+        <link rel='icon' href='/img/wctrophy.png' type='image/png'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' >
+        
+        <title>Mundial 2026</title>
+
+    </head>
+    <body>
+        <nav class="nav-bar">
+            <a href="/">
+            <img src='/img/wctrophy.png' height="50px" style="margin-left: 15px;">
+            </a>
+            <ul class="menu-links">
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/teams">Equipos</a></li>
+                <li><a href="/profile" style="margin:0;">{{username}}</a></li>
+                <li><a href="/auth/logout">Cerrar sesión</a></li>
+                <li><a href="/play">Jugar</a>
+                <li><a href="/leaderboard">Tabla</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-nav-bar">
+            <a href="/"><img id="home" src="/img/icons/home.png" alt="home"><label>Inicio</label></a>
+            <a href="/play"><img src="/img/icons/play.png" alt="play"><label>Jugar</label></a>
+            <a href="/leaderboard"><img src="/img/icons/leaderboard.png" alt="leaderboard"><label>Tabla</label></a>
+            <a href="/teams"><img src="/img/icons/teams.png" alt="teams"><label>Equipos</label></a>
+            <a href="/profile"><img src="/img/icons/perfil_active.png" alt="perfil"><label class="menu-active">Perfil</label></a>
+        </div>
+        <div class="container">
+            <img src="/img/flags/{{fav_team}}.png" id="fav_team_flag"
+            onerror="this.onerror=null; this.src='/img/flags/por_definir.png';" 
+            width="80px" height="80px">
+            <h1 style="margin-bottom: 5px;">{{username}}</h1>
+            <div style="font-size: 14px;">ID: {{id}}</div>
+            <div class="panel-profile">
+                <div>Puntos</div><div>Posición</div>
+                <div class="puntos">{{puntos}}</div><div class="rank">{{rank}}</div>
+            </div>
+            <a class="logout-button" href="/auth/logout">Cerrar sesión</a>
+            
+            <div class="section">
+                <h2>Jugadores Elegidos</h2>
+                {{#if players_selected}}
+                <div class="profile-grid">
+                    <p class="casilla bg-claro">MAX<br>Goleador</p><p class="casilla bg-claro">{{maximo_goleador}}</p>
+                    <p class="casilla bg-oscuro">MAX<br>Asistidor</p> <p class="casilla bg-oscuro">{{maximo_asistidor}}</p>
+                    <p class="casilla bg-claro">Mejor<br>Jugador</p><p class="casilla bg-claro">{{mejor_jugador}}</p>
+                    <p class="casilla bg-oscuro">Mejor<br>Portero</p><p class="casilla bg-oscuro">{{mejor_portero}}</p>
+                </div>
+                {{else}}
+                    <p>No ha elegido a sus jugadores.<br><a href="/play">Elígelos acá</a></p>
+                {{/if}}
+            </div>
+            <a class="profile-quinielas" href="/misQuinielas">Mis Resultados</a>
+        </div>
+    </body>
+</html>

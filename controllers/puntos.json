@@ -1,0 +1,35 @@
+{
+    
+    "PUNTOS_FDG_GOL" : 1,
+    "PUNTOS_FDG_RESULTADO" : 3,
+
+
+    "PUNTOS_16_GOL" : 3,
+    "PUNTOS_16_RESULTADO" : 5,
+    "PUNTOS_16_PENALES" : 2,
+
+
+    "PUNTOS_8_GOL" : 4,
+    "PUNTOS_8_RESULTADO" : 7,
+    "PUNTOS_8_PENALES" : 3,
+
+
+    "PUNTOS_4_GOL" : 5,
+    "PUNTOS_4_RESULTADO" : 9,
+    "PUNTOS_4_PENALES" : 4,
+
+
+    "PUNTOS_S_GOL" : 7,
+    "PUNTOS_S_RESULTADO" : 12,
+    "PUNTOS_S_PENALES" : 6,
+
+
+    "PUNTOS_3_GOL" : 8,
+    "PUNTOS_3_RESULTADO" : 12,
+    "PUNTOS_3_PENALES" : 6,
+
+
+    "PUNTOS_F_GOL" : 10,
+    "PUNTOS_F_RESULTADO" : 15,
+    "PUNTOS_F_PENALES" : 9
+}
