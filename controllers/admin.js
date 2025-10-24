@@ -9,6 +9,7 @@ exports.juegos = (req,res) => {
 }
 
 exports.fase = (req,res) => {
+    
     let fase = req.params.fase;
     let sql = `SELECT 
             p.id AS partido_id,
