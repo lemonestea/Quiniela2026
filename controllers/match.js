@@ -129,6 +129,6 @@ function obtenerPuntosPorFase(fase) {
 }
 
 function obtenerNombreGanador(ganador, team1, team2){
-    let nombre_del_ganador = (ganador === '1') ? "Ha ganado " + team1 : (ganador === '2') ? "Ha ganado " + team2 : "Hubo empate"
+    let nombre_del_ganador = (ganador === '1') ? "Ha ganado " + team1 : (ganador === '2') ? "Ha ganado " + team2 : "Empataron"
     return nombre_del_ganador;
 }

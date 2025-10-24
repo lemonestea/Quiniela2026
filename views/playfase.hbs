@@ -6,7 +6,8 @@
         <link rel='stylesheet' href='/style.css'>
         <link rel='icon' href='/img/wctrophy.png' type='image/png'>
         <meta name='viewport' content='width=device-width, initial-scale=1.0' >
-        
+        <link rel="manifest" href="/manifest.json">
+
         <title>Mundial 2026</title>
         <script>
             function checkLength(event) {
@@ -28,8 +29,10 @@
                 const penalesContainer = document.getElementById("penales_" + index); // Contenedor de penales
                 const penales1 = document.getElementById("penales1_" + index);
                 const penales2 = document.getElementById("penales2_" + index);
+                const val1 = parseInt(goles1.value, 10);
+                const val2 = parseInt(goles2.value, 10);
 
-                if (goles1.value === goles2.value && goles1.value !== "" && goles2.value !== "") {
+                if (!isNaN(val1) && !isNaN(val2) && val1 === val2) {
                     penales1.readOnly = false;
                     penales2.readOnly = false;
                     penales1.required = true;

@@ -6,7 +6,8 @@
         <link rel='stylesheet' href='/style.css'>
         <link rel='icon' href='/img/wctrophy.png' type='image/png'>
         <meta name='viewport' content='width=device-width, initial-scale=1.0' >
-        
+        <link rel="manifest" href="/manifest.json">
+
         <title>Mundial 2026</title>
 
     </head>
@@ -34,6 +35,60 @@
         </div>
         <div class="container">
             <h1>Torneo</h1>
+            <h3>Fase de Grupos</h3>
+            <button id="toggleBtn">Ver Leyenda</button>
+            <div class="torneo-container">
+
+            {{#each teams}}
+                <div class="grupo">
+                    <div id="grupo-title">GRUPO {{this.grupo}}</div>
+                    <div id="grupo-subtitle">
+                        <div>Pos</div>
+                        <div>Equipo</div>
+                        <div>Pts</div>
+                        <div>DG</div>
+                        <div>GF</div>
+                        <div>GC</div>
+                    </div>
+                {{#each this.equipos}}
+                    <div class="torneo-{{#if (isTopTwo (inc @index) this.total_points)}}clasificado-{{/if}}{{#if (isEven @index)}}even{{else}}odd{{/if}}{{#if (eq posicion 4)}} ultimo{{/if}}">
+                    <div>{{inc @index}}</div>
+                    <div>{{this.name}}</div>
+                    <div>{{this.total_points}}</div>
+                    <div class="DG-torneo">{{this.DG}}</div>
+                    <div>{{this.goals_for}}</div>
+                    <div>{{this.goals_against}}</div>
+                </div>
+                {{/each}}
+                </div>
+            {{/each}}
+            </div>
         </div>
+          
+
+            <div id="infoBox">
+                Toca esta ventana para cerrarla.<br><br>
+                <b>¿Qué significan estas siglas?</b><br><br>
+                <ul>
+                    <li><b>Pos</b>: La posición del equipo en la tabla</li>
+                    <li><b>Pts</b>: Puntos obtenidos (3 por ganar, 1 por empatar, 0 por perder)</li>
+                    <li><b>GF</b>: Goles que el equipo ha anotado (Goles a Favor)</li>
+                    <li><b>GC</b>: Goles que el equipo ha recibido (Goles en Contra)</li>
+                    <li><b>DG</b>: Diferencia entre GF y GC (Diferencia de Goles)</li>
+                </ul>
+
+            </div>
+          <script>
+            const toggleBtn = document.getElementById('toggleBtn');
+            const infoBox = document.getElementById('infoBox');
+
+            toggleBtn.addEventListener('click', () => {
+            infoBox.style.display = 'block';
+            });
+
+            infoBox.addEventListener('click', () => {
+            infoBox.style.display = 'none';
+            });
+        </script>
     </body>
 </html>

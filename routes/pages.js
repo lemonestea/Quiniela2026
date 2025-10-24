@@ -21,6 +21,11 @@ function requireAuth(req, res, next) {
 function checkIfQuinielaIsSent(req, res, next) {
     user_id = req.session.user["id"];
     fase = req.params.fase;
+    fases_posibles = ["FDG","16VOS","OCTAVOS","CUARTOS","SEMIS","FINAL","TERCER_PUESTO"];
+    if (!fases_posibles.includes(fase)) {
+    // La fase no es válida
+        return res.render("error");
+    }
     db.query("SELECT abierta FROM quinielas_control WHERE fase = ?",[fase], (error, control) => {
         
         if(error){

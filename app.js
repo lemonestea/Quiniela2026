@@ -96,3 +96,11 @@ hbs.registerHelper('capitalize', function (text) {
 hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
     return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });
+
+hbs.registerHelper('isTopTwo', function(pos, puntos){
+    return ((pos === 1)||(pos === 2)) && (puntos > 0);
+});
+
+hbs.registerHelper('inc', function(value) {
+  return parseInt(value) + 1;
+});

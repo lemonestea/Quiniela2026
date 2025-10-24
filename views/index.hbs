@@ -12,6 +12,7 @@
         <link rel="preload" as="image" href="/img/icons/leaderboard.png">
         <link rel="preload" as="image" href="/img/icons/teams.png">
         <link rel="preload" as="image" href="/img/icons/perfil.png">
+        <link rel="manifest" href="/manifest.json">
     </head>
     <body>
         <nav class="nav-bar">
@@ -37,7 +38,7 @@
             
         </nav>
         
-        <div class="container">
+        <div class="home-container">
             {{#if isAuthenticated}}
                 <div class="mobile-nav-bar">
                     <a href="/"><img id="home" src="/img/icons/home_active.png" alt="home"><label class="menu-active">Inicio</label></a>
@@ -66,9 +67,19 @@
                         <input type="submit" value="Elegir">
                     </form>
                 {{/if}}
+                <div class="land-partidos-container">
+                    <h2 style="font-size: 14px;margin:0;">PROX. PARTIDOS</h2>
+                {{#each partidos}}
+                    <div class="land-partidos">
+                        <div class="land-team"><img src="/img/flags/{{toLowerCase this.team1_short_name}}.png" />{{this.team1_name}}</div>
+                        <div>VS</div>
+                        <div class="land-team"><img src="/img/flags/{{toLowerCase this.team2_short_name}}.png" />{{this.team2_name}}</div>
+                    </div>
+                {{/each}}
+                </div>
                 <div class="land-container">
                     <a id="play-button" href="/play">
-                        <img src="/img/icons/dice.png" height="80">Arma tu Quiniela!
+                        <img class="icon" src="/img/icons/flecha_play.png">Arma tu Quiniela!
                     </a>
                     <a href="/rules"><img alt="Reglas" src="/img/icons/rules.png" height="50px"><label>Reglas</label></a>
                     <a href="/howtoplay"><img alt="Como Jugar" src="/img/icons/question_mark.png" height="50px"><label>Cómo jugar</label></a>
@@ -76,20 +87,29 @@
                     <a href="/tournament"><img alt="Torneo" src="/img/icons/torneo.png" height="50px"><label>Torneo</label></a>
                 </div>
             {{else}}
-            
-                <div class="land">
-                    <h1 style="display:flex; align-items: center;"><img src='/img/wctrophy.png' height="70px">Quiniela 2026<img src='/img/wctrophy.png' height="70px"></h1>
-                    <p>Crea tu quiniela, reta a tus amigos y gana premios increíbles.</p>
+                <div id="splash">
+                    <img src='/img/wclogo.png' id="splash-logo" style="width: 150px; height: auto;"  alt="Mundial 2026">
+                    <h1 id="splash-text">MUNDIAL 2026</h1>
+                </div>
+                <div class="land" id="land" style="display:none;">  
+                    <h1 class="home-text">BIENVENIDO</h1>
+                    <h2 class="quiniela-name">Quiniela Mundial 2026</h2>
                         <div class="dark-bg">
                             <div class="image-container">
-                                <img class="quiniela2026wp" src="/img/lamine.png" height="200">
+                                <img class="quiniela2026wp" src="/img/quiniela_logo.png">
                             </div>
-                            <div class="text-container">
-                                <a href="/login">Inicia sesión</a>
-                                <br>
-                                Si aún no te has registrado,<br>
-                                <a href="/register">Regístrate ya!</a>
+                            <div class="text-container home-main">
+                                <a class="home-links" href="/login">
+                                    <img src="/img/icons/perfil.png"/>
+                                    Iniciar sesión
+                                </a>
+                                <a class="home-links" href="/register">
+                                <img src="/img/icons/plus_sign.png"/>
+                                    Registrarse
+                                </a>
+                                <a class="forgot-password" href="/forgotpassword">Olvidé mi contraseña</a>
                             </div>
+                            
                         </div>
                         
                     
@@ -128,16 +148,123 @@
                     startCountdown(mundialFecha);
                     </script>    
                 </div>
+                <div class="home-flags">
+                    <h2>Campeones del Mundo</h2>
+                    <div class="home-flag">
+                    <img src="/img/flags/por_definir.png" height="30px">
+                    2026
+                    </div>
 
-                <div class="hiw">
-                    <h2>Cómo funciona?</h2>
-                    <p style="text-align: left; font-size: 15px;">
-                    &#128100; Regístrate<br>
-                    &#9917; Predice los resultados<br>
-                    &#128016; Elige a tus jugadores favoritos<br>
-                    &#129351; Suma puntos y compite en el ranking<br>
-                    &#127942; Gana premios</p>
-                </div>
+                    <div class="home-flag">
+                    <img src="/img/flags/arg.png" height="30px">
+                    2022
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/fra.png" height="30px">
+                    2018
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/ger.png" height="30px">
+                    2014
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/esp.png" height="30px">
+                    2010
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/ita.png" height="30px">
+                    2006
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/bra.png" height="30px">
+                    2002
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/fra.png" height="30px">
+                    1998
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/bra.png" height="30px">
+                    1994
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/ger.png" height="30px">
+                    1990
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/arg.png" height="30px">
+                    1986
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/ita.png" height="30px">
+                    1982
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/arg.png" height="30px">
+                    1978
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/ger.png" height="30px">
+                    1974
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/bra.png" height="30px">
+                    1970
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/eng.png" height="30px">
+                    1966
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/bra.png" height="30px">
+                    1962
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/bra.png" height="30px">
+                    1958
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/ger.png" height="30px">
+                    1954
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/uru.png" height="30px">
+                    1950
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/ita.png" height="30px">
+                    1938
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/ita.png" height="30px">
+                    1934
+                    </div>
+
+                    <div class="home-flag">
+                    <img src="/img/flags/uru.png" height="30px">
+                    1930
+                    </div>
+
                 </div>
                 
             {{/if}}
@@ -146,5 +273,14 @@
            
         </div>
         
+        <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+            document.getElementById('land').style.display = 'flex';
+            document.body.style.overflow = 'auto';
+            }, 0); // mostrar contenido después de que desaparece el splash
+        });
+        </script>
+
     </body>
 </html>

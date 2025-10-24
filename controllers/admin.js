@@ -9,8 +9,9 @@ exports.juegos = (req,res) => {
 }
 
 exports.fase = (req,res) => {
-    fase = req.params.fase;
-    sql = `SELECT 
+    
+    let fase = req.params.fase;
+    let sql = `SELECT 
             p.id AS partido_id,
             t1.id AS team1_id, 
             t1.name AS team1_nombre,
@@ -31,7 +32,7 @@ exports.fase = (req,res) => {
     db.query(sql,[fase], (error, partidos) => {
         if(error){
             console.log(error)
-            return res.render(error)
+            return res.status(500).send("Error en la base de datos.");
         }
         else{
             

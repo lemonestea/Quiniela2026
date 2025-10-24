@@ -7,6 +7,7 @@
         <meta name='viewport' content='width=device-width, initial-scale=1.0' >
         <link rel='icon' href='/img/wctrophy.png' type='image/png'>
         <title>Mundial 2026</title>
+        <link rel="manifest" href="/manifest.json">
 
     </head>
     <body>
@@ -22,6 +23,7 @@
         </nav>
         <div class="container">
             <form class="register" autocomplete="off" action="/auth/register" method="POST">
+                <img src="/img/icons/register.png" />
                 <h2>Registrarse</h2>
                 <input type="text" style="{{usererror}}" id="user" name="user" placeholder="Usuario" value="{{user}}" required>
                 <input type="text" style="{{emailerror}}" id="email" name="email" placeholder="E-mail" autocomplete="nope" value="{{email}}" required>

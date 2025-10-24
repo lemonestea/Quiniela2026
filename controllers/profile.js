@@ -7,6 +7,8 @@ exports.renderProfile = async (req, res) => {
         const username = req.session.user.username;
         const id = req.session.user.id;
         let points = await getPoints(id);
+        points = points || {}; // Si es null, lo convierte en objeto vacío
+
 
         db.query('SELECT * FROM users WHERE user = ?', [username], (error, results) => {
             if (error) {
@@ -49,8 +51,8 @@ exports.renderProfile = async (req, res) => {
                             username: results[0].user,
                             id: results[0].id,
                             fav_team: (results2 && results2.length > 0) ? results2[0].short_name : "por_definir",
-                            puntos: points.puntos,
-                            rank: points.ranking
+                            puntos: points.puntos ?? '?',
+                            rank: points.ranking ?? '?'
                         });
                     }
                     else{
@@ -63,8 +65,8 @@ exports.renderProfile = async (req, res) => {
                             maximo_asistidor: selected_players[0].maximo_asistidor_name,
                             mejor_jugador: selected_players[0].mejor_jugador_name,
                             mejor_portero: selected_players[0].mejor_portero_name,
-                            puntos: points.puntos,
-                            rank: points.ranking
+                            puntos: points.puntos ?? '?',
+                            rank: points.ranking ?? '?'
                         })
                     }
                 })

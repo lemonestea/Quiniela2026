@@ -1,5 +1,4 @@
 const db = require("../db")
-const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 const crypto = require("crypto")
 const nodemailer = require("nodemailer")
@@ -11,7 +10,7 @@ exports.register = async (req, res) => {
     try {
         const { user, email, password, passwordConfirm } = req.body;
 
-        if(!isValidEmail([email])){
+        if(!isValidEmail(email)){
             return res.render('register', {
                 error: 'Email inválido',
                 user: [user],
@@ -172,6 +171,7 @@ exports.logout = (req, res) => {
     req.session.destroy((err) => {
         if (err) {
             console.error(err);
+            
             return res.render("error", { message: "Error al cerrar sesión" });
         }
         res.redirect("/"); // Redirigir al índice
@@ -226,7 +226,7 @@ exports.forgotPassword = async (req, res) => {
         const resetLink = `${req.protocol}://${req.get("host")}/auth/reset-password/${token}`;
 
         await transporter.sendMail({
-            from: process.env.EMAIL,
+            from: '"Quiniela Yoyo" <' + process.env.EMAIL + '>',
             to: email,
             subject: "Restaurar Contraseña",
             html: `<p>Para restaurar tu contraseña, haz clic en el enlace siguiente:</p>
