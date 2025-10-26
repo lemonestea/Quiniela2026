@@ -27,11 +27,13 @@ router.get('/borrar-todas-las-quinielas', requireAdmin, admin.borrarTodasLasQuin
 router.get('/crear-quinielas-random', requireAdmin, admin.TodasLasQuinielasRandom)
 router.get('/games', requireAdmin, admin.games)
 router.get('/games/:fase', requireAdmin, admin.gamesFase)
+router.get('/quinielas-faltantes',requireAdmin,admin.quinielasFaltantes)
 
 //POSTs
 router.post('/cargar/:fase', requireAdmin, admin.cargar)
 router.post('/quiniela-controles/:fase', requireAdmin, admin.updateControles)
 router.post('/jugadores-quiniela/:fase',requireAdmin, admin.borrarQuinielas)
 router.post('/cambiarPartido/:id', requireAdmin, admin.cambiarPartido)
+
 
 module.exports = router;

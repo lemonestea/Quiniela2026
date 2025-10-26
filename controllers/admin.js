@@ -9,7 +9,7 @@ exports.juegos = (req,res) => {
 }
 
 exports.fase = (req,res) => {
-    
+
     let fase = req.params.fase;
     let sql = `SELECT 
             p.id AS partido_id,
@@ -462,4 +462,14 @@ exports.cambiarPartido = (req, res) => {
     db.query(sql, [team1, team2, id])
 
     return res.redirect(`/admin-amrdq12s/games/${fase}`)
+}
+
+//Quien falta por la quiniela [Fase] M2026-1
+exports.quinielasFaltantes = (req,res) =>{
+    let fases = [];
+
+    fases.push({fase:"Fase de grupos", codigo:"FDG"});
+    fases.push({fase:"Dieciseisavos", codigo:"16VOS"});
+    fases.push({fase:"Octavos", codigo:"8VOS"});
+    return res.render("admin/quinielasfaltantes",{fases: fases})
 }
