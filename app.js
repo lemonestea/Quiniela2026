@@ -64,16 +64,24 @@ hbs.registerHelper("eq", function(a, b) {
     return a === b;
 });
 
-hbs.registerHelper("formatDate", function (dateString) {
-    const date = new Date(dateString);
-    const day = String(date.getUTCDate()).padStart(2, "0");
-    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
-    const year = date.getUTCFullYear();
-    const hours = String(date.getUTCHours()).padStart(2, "0");
-    const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+hbs.registerHelper("formatDate", function(dateObj) {
+    // Si no es Date, convertirlo
+    if (!(dateObj instanceof Date)) {
+        dateObj = new Date(dateObj);
+    }
+
+    // Extraemos los componentes directamente
+    const day = String(dateObj.getDate()).padStart(2, "0");
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+    const year = dateObj.getFullYear();
+    const hours = String(dateObj.getHours()).padStart(2, "0");
+    const minutes = String(dateObj.getMinutes()).padStart(2, "0");
 
     return `${day}/${month}/${year}\n${hours}:${minutes}`;
 });
+
+
+
 
 hbs.registerHelper("isDefined", function(value) {
     return typeof value !== "undefined";

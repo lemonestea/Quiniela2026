@@ -68,12 +68,12 @@
                     </form>
                 {{/if}}
                 <div class="land-partidos-container">
-                    <h2 style="font-size: 14px;margin:0;">PROX. PARTIDOS</h2>
+                    <h2 style="font-size: 14px;margin:0;">PRÓX. PARTIDOS</h2>
                 {{#each partidos}}
                     <div class="land-partidos">
-                        <div class="land-team"><img src="/img/flags/{{toLowerCase this.team1_short_name}}.png" />{{this.team1_name}}</div>
+                        <div class="land-team"><img src="/img/flags/{{toLowerCase this.team1_short_name}}.png" onerror="this.src='/img/flags/por_definir.png';" />{{this.team1_name}}</div>
                         <div>VS</div>
-                        <div class="land-team"><img src="/img/flags/{{toLowerCase this.team2_short_name}}.png" />{{this.team2_name}}</div>
+                        <div class="land-team"><img src="/img/flags/{{toLowerCase this.team2_short_name}}.png" onerror="this.src='/img/flags/por_definir.png';" />{{this.team2_name}}</div>
                     </div>
                 {{/each}}
                 </div>
