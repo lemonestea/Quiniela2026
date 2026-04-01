@@ -96,21 +96,28 @@
                     </div>
                 {{/each}}
                 <a class="go-back" href="/misQuinielas">Ir atrás</a>
+            
             {{else}}
-                {{#if quinielasNotSent}}
-                    <div>Aún no has enviado esta Quiniela</div>
+                {{#if jugadores}}
+                    <div>{{jugadores}}</div>
                     <a class="go-back" href="/misQuinielas">Ir atrás</a>
                 {{else}}
-                    Selecciona una Fase del Mundial
-                    <div class="links-quinielas">
-                        <a href="/misQuinielas/FDG">Fase de Grupos</a>
-                        <a href="/misQuinielas/16VOS">Dieciseisavos</a>
-                        <a href="/misQuinielas/OCTAVOS">Octavos</a>
-                        <a href="/misQuinielas/CUARTOS">Cuartos</a>
-                        <a href="/misQuinielas/SEMIS">Semifinales</a>
-                        <a href="/misQuinielas/TERCER_PUESTO">Tercer Puesto</a>
-                        <a href="/misQuinielas/FINAL">Final</a>
-                    </div>
+                    {{#if quinielasNotSent}}
+                        <div>Aún no has enviado esta Quiniela</div>
+                        <a class="go-back" href="/misQuinielas">Ir atrás</a>
+                    {{else}}
+                        Selecciona una Fase del Mundial
+                        <div class="links-quinielas">
+                            <a href="/misQuinielas/FDG">Fase de Grupos</a>
+                            <a href="/misQuinielas/16VOS">Dieciseisavos</a>
+                            <a href="/misQuinielas/OCTAVOS">Octavos</a>
+                            <a href="/misQuinielas/CUARTOS">Cuartos</a>
+                            <a href="/misQuinielas/SEMIS">Semifinales</a>
+                            <a href="/misQuinielas/TERCER_PUESTO">Tercer Puesto</a>
+                            <a href="/misQuinielas/FINAL">Final</a>
+                            <a href="/misQuinielas/JUGADORES_SELECCIONADOS">Jugadores Elegidos</a>
+                        </div>
+                    {{/if}}
                 {{/if}}
             {{/if}}
         </div>

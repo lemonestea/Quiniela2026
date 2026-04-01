@@ -51,7 +51,7 @@
                         <div>GC</div>
                     </div>
                 {{#each this.equipos}}
-                    <div class="torneo-{{#if (isTopTwo (inc @index) this.total_points)}}clasificado-{{/if}}{{#if (isEven @index)}}even{{else}}odd{{/if}}{{#if (eq posicion 4)}} ultimo{{/if}}">
+                    <div class="torneo-{{#if (isTopTwo (inc @index) this.total_points)}}clasificado-{{/if}}{{#if (isEven @index)}}even{{else}}odd{{/if}}{{#if (eq  @index 3)}} ultimo{{/if}}">
                     <div>{{inc @index}}</div>
                     <div>{{this.name}}</div>
                     <div>{{this.total_points}}</div>

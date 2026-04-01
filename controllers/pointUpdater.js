@@ -16,7 +16,7 @@ exports.actualizarPuntos = () => {
 }
 
 // Función para calcular puntos
-function calcularPuntos(users) {
+async function calcularPuntos(users) {
     if (!Array.isArray(users)) {
         console.log("Error: Se esperaba un array de usuarios.");
         return;
@@ -24,45 +24,51 @@ function calcularPuntos(users) {
 
     const SQL = "SELECT id, goles1, penales1, goles2, penales2, fase FROM partidos ORDER BY id ASC;";
 
-    db.query(SQL, (error, partidos) => {
+    db.query(SQL, async (error, partidos) => {
         if (error) {
             console.log("Error al obtener partidos:", error);
             return;
         }
 
-        users.forEach(USER => {
-            // Logica para calcular las quinielas de cada jugador de la quiniela
+        for (const USER of users) {
             let sql = "SELECT partido_id, goles1, penales1, goles2, penales2 FROM bets WHERE user_id = ?";
             let points = 0;
 
-            db.query(sql, USER.id, (error, results) => {
-                if (error) {
-                    console.log(`Error al obtener apuestas del usuario ${USER.id}:`, error);
-                    return;
-                }
-
-                results.forEach(RESULT => {
-                    const partido = partidos.find(p => p.id === RESULT.partido_id);
-                    if (partido) {
-                        points += sumarPuntos(RESULT, partido);
+            await new Promise((resolve, reject) => {
+                db.query(sql, [USER.id], async (error, results) => {
+                    if (error) {
+                        console.log(`Error apuestas usuario ${USER.id}`, error);
+                        return reject(error);
                     }
-                });
-                
-                const insertSQL = `
-                    INSERT INTO leaderboard (usuario_id, puntos)
-                    VALUES (?, ?)
-                    ON DUPLICATE KEY UPDATE puntos = VALUES(puntos)
-                `;
 
-                db.query(insertSQL, [USER.id, points], (insertErr, result) => {
-                    if (insertErr) {
-                        console.log(`Error insertando puntos para usuario ${USER.id}:`, insertErr);
-                    }
+                    results.forEach(RESULT => {
+                        const partido = partidos.find(p => p.id === RESULT.partido_id);
+                        if (partido) {
+                            points += sumarPuntos(RESULT, partido);
+                        }
+                    });
+
+                    // ✅ AQUÍ YA FUNCIONA COMO QUERÍAS
+                    points += await sumarPuntosAwardedPlayers(USER.id);
+
+                    const insertSQL = `
+                        INSERT INTO leaderboard (usuario_id, puntos)
+                        VALUES (?, ?)
+                        ON DUPLICATE KEY UPDATE puntos = VALUES(puntos)
+                    `;
+
+                    db.query(insertSQL, [USER.id, points], err => {
+                        if (err) {
+                            console.log(`Error insertando ${USER.id}`, err);
+                        }
+                        resolve();
+                    });
                 });
             });
-        });
+        }
     });
 }
+
 
 function sumarPuntos(bet, partido) {
     if (partido.goles1 === null || partido.goles2 === null) {
@@ -167,4 +173,54 @@ function obtenerGanadorDelDuelo(partido) {
 
     // Empate total
     return 'E';
+}
+
+function sumarPuntosAwardedPlayers(user_id) {
+    return new Promise((resolve, reject) => {
+        let points = 0;
+        let sql1 = `SELECT * FROM players_awarded`;
+        let sql2 = `SELECT * FROM selected_players WHERE user_id = ?`;
+
+        db.query(sql1, (error, players_awarded) => {
+            if (error) return reject(error);
+
+            db.query(sql2, [user_id], (error, selected_players) => {
+                if (error) return reject(error);
+
+                if (selected_players.length === 0) {
+                    return resolve(0);
+                }
+
+                players_awarded.forEach(player_awarded => {
+                    let player = null;
+                    let puntos_a_sumar = 0;
+
+                    switch (player_awarded.titulo) {
+                        case "MAX_GOLEADOR":
+                            player = selected_players[0].maximo_goleador;
+                            puntos_a_sumar = puntos_por_fase.PUNTOS_MAX_GOLEADOR;
+                            break;
+                        case "MAX_ASISTIDOR":
+                            player = selected_players[0].maximo_asistidor;
+                            puntos_a_sumar = puntos_por_fase.PUNTOS_MAX_ASISTIDOR;
+                            break;
+                        case "MEJOR_JUGADOR":
+                            player = selected_players[0].mejor_jugador;
+                            puntos_a_sumar = puntos_por_fase.PUNTOS_MEJOR_JUGADOR;
+                            break;
+                        case "MEJOR_PORTERO":
+                            player = selected_players[0].mejor_portero;
+                            puntos_a_sumar = puntos_por_fase.PUNTOS_MEJOR_PORTERO;
+                            break;
+                    }
+
+                    if (player_awarded.player_id == player) {
+                        points += puntos_a_sumar;
+                    }
+                });
+
+                resolve(points);
+            });
+        });
+    });
 }

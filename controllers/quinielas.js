@@ -58,6 +58,12 @@ exports.showQuiniela = (req, res) => {
 
 }
 
+exports.showJugadoresElegidos = (req, res) =>{
+    var jugadores = "Cr7";
+
+    return res.render('quinielas',{jugadores:jugadores});
+}
+
 function calcularPuntos(quiniela){
     
     if (quiniela.r_goles1 === null || quiniela.r_goles2 === null) {
@@ -158,3 +164,4 @@ function obtenerGanador(goles1, goles2, penales1, penales2) {
     // Empate total
     return 'E';
 }
+

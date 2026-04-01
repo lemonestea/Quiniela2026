@@ -110,6 +110,7 @@ function getTeamsAndPoints() {
     ) AS DG
 FROM (
     SELECT
+        t.id AS ID,
         t.name,
         t.team_group,
         SUM(
@@ -137,10 +138,10 @@ FROM (
         ) AS dg_numerico
     FROM partidos p
     JOIN teams t ON t.id = p.team1_id OR t.id = p.team2_id
-    WHERE t.team_group = ?
+    WHERE t.team_group = ? AND p.fase = 'FDG'
     GROUP BY t.name, t.team_group
 ) AS tabla_clasificada
-ORDER BY total_points DESC, dg_numerico DESC, goals_for DESC;
+ORDER BY total_points DESC, dg_numerico DESC, goals_for DESC, ID ASC;
 
                     `;
 

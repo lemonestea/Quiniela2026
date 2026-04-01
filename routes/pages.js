@@ -92,6 +92,7 @@ router.get('/play/:fase',requireAuth,checkIfQuinielaIsSent, playController.rende
 router.post('/sendQuiniela/:fase',requireAuth,checkIfQuinielaIsSent, playController.sendQuiniela)
 
 //QUINIELA
+router.get('/misQuinielas/JUGADORES_SELECCIONADOS',requireAuth, quinielasController.showJugadoresElegidos)
 router.get('/misQuinielas',requireAuth, quinielasController.showFases)
 router.get('/misQuinielas/:fase',requireAuth, quinielasController.showQuiniela)
 
