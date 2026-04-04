@@ -245,7 +245,7 @@ body::-webkit-scrollbar {
     width: 97%;
     border: none;
     height: 100px;
-    background-image: linear-gradient(30deg, rgb(0, 202, 0), rgb(0, 88, 10));
+    background-image: linear-gradient(to right,rgb(0, 141, 17),rgb(0, 202, 0), rgb(0, 141, 17 ));
     color: white;
     transition: 0.2s ease-in-out;
     padding: 5px;
@@ -305,6 +305,7 @@ body::-webkit-scrollbar {
     background-image: linear-gradient(10deg, rgb(30, 30, 30), rgb(70, 70, 70));
     padding: 10px;
     border-radius: 20px;
+    width: 85%;
 }
 
 .land-partidos-container{
@@ -318,6 +319,9 @@ body::-webkit-scrollbar {
     text-align: center;
     font-weight: bold;
     border: 2px solid #282828;
+    max-width: 90%;
+    justify-items: center;
+    justify-content: center;
 }
 
 .land-team{
@@ -602,7 +606,6 @@ input:-webkit-autofill:active, input:-webkit-autofill:focus{
 }
 
 #jugadores{
-    border-bottom: 2px solid rgb(146, 146, 146);
     padding-bottom: 20px;
 }
 
@@ -1263,8 +1266,8 @@ input[type=number]:focus{
     text-decoration: none;
     margin-top: 10px;
     color: white;
-    border: 3px solid rgb(0, 6, 88);
-    background-color: rgb(6, 0, 189);
+    background: linear-gradient(#0023c5, #000595, #0a1bff);
+    border: solid 2px #919191;
     padding: 9px;
     border-radius: 10px;
     width: 100%;
@@ -1277,13 +1280,19 @@ input[type=number]:focus{
     margin-top: 20px;
     text-decoration: none;
     color: white;
-    background-color: rgb(174, 0, 0);
+    background:linear-gradient(#515151, #202020, #404040);
     padding: 9px;
     border-radius: 20px;
     font-weight: bold;
     box-shadow: 0 5px 10px 5px black;
-    border: 3px solid red;
+    width: 40%;
+    text-align: center;
 }
+
+.go-back:hover{
+    transform: scale(1.03);
+}
+
 .go-back:active, .links-quinielas a:active{
     transform: scale(1.05);
 }
@@ -1387,6 +1396,109 @@ input[type=number]:focus{
 
 .pd-10{
     padding: 10px;
+}
+
+.jugadores-title{
+    font-weight: bold;
+    color: white;
+    font-size: 28px;
+}
+
+.jugador-card{
+    margin-top: 30px;
+    border-radius: 20px;
+    width: 85%;
+    max-width: 340px;
+    min-width: 320px;
+    padding: 2px;
+    background-color: rgb(153, 153, 153);
+}
+
+.jugador-header{
+    padding: 15px 0;
+    background-color: #f2f2f2;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: rgb(0, 17, 128);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.label{
+    display: flex;
+    font-size: 14px;
+    margin-left: 10px;
+    color: rgba(255, 255, 255, 0.7);
+    align-items: center;
+}
+
+.label img{
+    margin-right: 10px;
+}
+
+.valor{
+    font-size:16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.jugador-item{
+    display: grid;
+    align-items: center;
+    grid-template-columns: 35% 65%;
+    width: 100%;
+    padding: 15px 0;
+}
+
+.white-line-divider{
+    height: 1px;
+    transform: scaleY(0.5);
+    width: 90%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.4) 20%,
+        rgba(255, 255, 255, 0.8) 50%,
+        rgba(255, 255, 255, 0.4) 80%,
+        rgba(255, 255, 255, 0.1) 100%
+        );
+}
+
+.jugador-body{
+    display: grid;
+    align-items: center;
+    justify-content: stretch;
+    justify-items: center;
+    width: 100%;
+    background: linear-gradient(rgb(0, 1, 63), rgb(0, 2, 124), rgb(0, 1, 63));
+}
+
+.jugador-puntos{
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    padding: 5px 0;
+    
+}
+
+.bg-green{
+    background: linear-gradient(to right, rgb(0, 54, 0),rgb(0, 157, 0),rgb(0, 54, 0));
+}
+
+.bg-not-defined{
+    background: linear-gradient(to right, rgb(60, 60, 60),rgb(120, 120, 120),rgb(60, 60, 60));
+}
+
+.bg-red{
+    background: linear-gradient(to right, rgb(54, 0, 0),rgb(157, 0, 0),rgb(54, 0, 0));
+}
+
+.bottom-borders-20{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 @media only screen and (max-width: 600px) {

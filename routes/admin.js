@@ -5,7 +5,7 @@ const admin = require("../controllers/admin")
 
 function requireAdmin(req, res, next) {
     
-    if(!req.session.user || req.session.user.username != "Yoyo"){
+    if(!req.session.user || req.session.user.username != "yoyo"){
         return res.redirect('/');   //Negar el paso a la pagina admin
     }
     next();

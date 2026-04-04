@@ -99,7 +99,45 @@
             
             {{else}}
                 {{#if jugadores}}
-                    <div>{{jugadores}}</div>
+                        <div class="jugadores-title">Jugadores Elegidos</div>
+
+                        <div class="jugador-card">
+                            <div class="jugador-header">
+                                Máximo Goleador
+                            </div>
+
+                            <div class="jugador-body">
+                                <div class="jugador-item">
+                                    <span class="label"><img src="/img/icons/check_green.png" alt="Maximo goleador" height="20px"/>Elegido:</span>
+                                    <span class="valor">{{jugadores.MAX_GOLEADOR}}</span>
+                                </div>
+                                <div class="white-line-divider">
+
+                                </div>
+                                <div class="jugador-item">
+                                    <span class="label"><img src="/img/icons/bullseye.png" alt="Maximo goleador" height="20px"/>Goleador:</span>
+                                    <span class="valor">{{jugadores.GOLEADOR_REAL}}</span>
+                                </div>
+                            </div>
+                            {{#if (eq jugadores.MAX_GOLEADOR jugadores.GOLEADOR_REAL)}}
+                            <div class="jugador-puntos bg-green bottom-borders-20">
+                                +{{puntos.PUNTOS_MAX_GOLEADOR}} puntos
+                            </div>
+                            {{else}}
+                                {{#if (eq jugadores.GOLEADOR_REAL "Pendiente")}}
+
+                                    <div class="jugador-puntos bg-not-defined bottom-borders-20">
+                                        +0 puntos
+                                    </div>
+                                {{else}}
+                                    <div class="jugador-puntos bg-red bottom-borders-20">
+                                        +0 puntos
+                                    </div>
+                                {{/if}}
+                            {{/if}}
+                        </div>
+                        
+
                     <a class="go-back" href="/misQuinielas">Ir atrás</a>
                 {{else}}
                     {{#if quinielasNotSent}}
