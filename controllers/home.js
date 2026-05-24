@@ -39,7 +39,7 @@ exports.renderHomePage = (req, res) => {
                 })
             }
             else{
-                db.query("SELECT id, name FROM teams", (error,results) =>{
+                db.query("SELECT id, name FROM teams ORDER BY name ASC", (error,results) =>{
                     if(error){
                         console.log(error)
                         return res.render('index',{message: 'Error al cargar los equipos'})

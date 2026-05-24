@@ -642,7 +642,7 @@ input:-webkit-autofill:active, input:-webkit-autofill:focus{
 #seleccionar_jugadores select{
     background-color: rgb(71, 71, 71);
     color: white;
-    border: none;
+    /* border: none; */
     height: 40px;
     border-radius: 20px;
     text-align: center;
@@ -1025,6 +1025,16 @@ input[type=number]:read-only{
     width: 180px;
     text-align: center;
     font-weight: bold;
+    border: 2px solid gold;
+}
+
+.select_player:valid {
+    border-color: green;
+}
+
+.select_player:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .colores-indicadores{

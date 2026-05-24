@@ -104,35 +104,39 @@
             {{else}} 
                 <h2>Elige a tus Jugadores</h2>
                 <form id="seleccionar_jugadores" action="/load_max_goleador" method="POST">
-                    <select class="select_player" name="maximo_goleador" id="maximo_goleador">
+                    <div>Selecciona al Máximo Goleador</div>
+                    <div>Selecciona al Máximo Asistidor</div>
+                    <select class="select_player" name="maximo_goleador" id="maximo_goleador" required>
                             <option disabled selected value="">Máximo Goleador</option>
                         {{#each players}}
                             <option value="{{id}}">{{name}} ({{short_name}})</option>
                         {{/each}}
                     </select>
                     
-                    <select class="select_player" name="maximo_asistidor" id="maximo_asistidor">
+                    <select class="select_player" name="maximo_asistidor" id="maximo_asistidor" required>
                         <option disabled selected value="">Máximo Asistidor</option>
                         {{#each players}}
                             <option value="{{id}}">{{name}} ({{short_name}})</option>
                         {{/each}}
                     </select>
-
-                    <select class="select_player" name="mejor_jugador" id="mejor_jugador">
+                    <div style="height: 20px;"></div><div></div>
+                    <div>Selecciona al Mejor Jugador</div>
+                    <div>Selecciona al Mejor Portero</div>
+                    <select class="select_player" name="mejor_jugador" id="mejor_jugador" required>
                         <option disabled selected value="">Mejor Jugador</option>
                         {{#each players}}
                             <option value="{{this.id}}">{{this.name}} ({{short_name}})</option>
                         {{/each}}
                     </select>
 
-                    <select class="select_player" name="mejor_portero" id="mejor_portero">
+                    <select class="select_player" name="mejor_portero" id="mejor_portero" required>
                         <option disabled selected value="">Mejor Portero</option>
                         {{#each porteros}}
                             <option value="{{this.id}}">{{this.name}} ({{short_name}})</option>
                         {{/each}}
                     </select>
-                 
-                    <input id="send-jugadores" type="submit" value="Enviar">
+
+                    <input style="margin-top: 30px;" id="send-jugadores" type="submit" value="Enviar">
                 </form>
             {{/if}}
         </div>
@@ -162,7 +166,7 @@
             select.style.border = "2px solid red";
           }
         } else {
-          select.style.border = "";
+          select.style.border = "2px solid green";
         }
       });
 
@@ -172,6 +176,8 @@
       }
     });
   });
+
+
 
 </script>
 

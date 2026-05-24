@@ -64,6 +64,7 @@
                     <label for="fav_team">Elige tu equipo favorito</label>
                     <form action="/loadfavteam" method="POST">
                         <select name="fav_team" id="fav_team">
+                            <option disabled selected value="">Selecciona un equipo</option>
                             {{#each teams}}
                                 <option value="{{id}}">{{name}}</option>
                             {{/each}}

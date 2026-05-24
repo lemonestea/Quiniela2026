@@ -33,10 +33,14 @@ exports.loadFavTeam = (req,res) =>{
     try{
         const user_id = req.session.user['id']
         const {fav_team} = req.body
+        
         if( !user_id || !fav_team){
-            return res.render("index")
+            return res.redirect("/")
         }
-        db.query("INSERT INTO favteam (user_id,teamid) VALUES (?,?)",[user_id,fav_team])
+        else{
+            db.query("INSERT INTO favteam (user_id,teamid) VALUES (?,?)",[user_id,fav_team])
+        }
+        
         return res.redirect("/")
 
     }catch( err ){

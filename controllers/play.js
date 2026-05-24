@@ -1,6 +1,7 @@
 const db = require("../db");
 const axios = require("axios");
-
+const path = require('path');
+const fs = require('fs');
 
 exports.renderPlay = (req, res) => {
     try {
@@ -189,6 +190,7 @@ exports.sendQuiniela = (req, res) => {
     const user_id = req.session.user['id'];
     const resultados = req.body;
     
+    let log_string = "";
     
     const SQL = `
         INSERT INTO
@@ -207,12 +209,16 @@ exports.sendQuiniela = (req, res) => {
                 penales1 = resultados.team1_penales[index] || null;
                 penales2 = resultados.team2_penales[index] || null;             
             }        
-    
+            
             db.query(SQL, [partido, user_id, goles1, goles2, penales1, penales2], (error, sql) => {
                 if (error) {
                     console.log(error);
                 }            
             });
+            log_string += "Player ID: " + user_id + " Game ID: " + partido + 
+            " GOL1: " + goles1 + " GOL2: " + goles2 + 
+            " PEN1: " + penales1 + " PEN2: " + penales2 + "\n";
+
         });
     }
 
@@ -232,8 +238,13 @@ exports.sendQuiniela = (req, res) => {
                 console.log(error);
             }            
         });
+
+        log_string += "Player ID: " + user_id + " Game ID: " + partido + 
+            " GOL1: " + goles1 + " GOL2: " + goles2 + 
+            " PEN1: " + penales1 + " PEN2: " + penales2 + "\n";
     }
     
+    writeBetsLog(log_string);
 
     db.query(`INSERT INTO quinielas_envios (usuario_id, fase, enviado)
         VALUES ( ?, ?, ?)`,[user_id, resultados.fase, 1], (error, sql) => {
@@ -241,5 +252,30 @@ exports.sendQuiniela = (req, res) => {
                 console.log(error);
             }
         });
+    
     return res.redirect('/play');
+}
+
+function writeBetsLog(texto){
+    const logPath = path.join('logs/bets.log');
+    const logData = `${getFormattedDate()} \n` + texto;
+    fs.appendFile(logPath, logData, (err) => {
+        if (err) {
+            console.error('Error al escribir en bets.log:', err);
+        }
+    })
+}
+
+function getFormattedDate() {
+    const now = new Date();
+
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2,'0');
+
+    return `[${day}-${month}-${year} @${hours}:${minutes}:${seconds}]`;
 }
