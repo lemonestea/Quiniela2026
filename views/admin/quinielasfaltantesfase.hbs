@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang='es'>
+    <head>
+
+        <meta charset='UTF-8'>
+        <link rel='stylesheet' href='/admin.css'>
+        <link rel='icon' href='/img/wctrophy.png' type='image/png'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' >
+        
+        <title>ADMIN</title>
+
+    </head>
+    <body>
+        <a class="rojo exit" href="/admin-amrdq12s">EXIT</a>
+        <a class="rojo exit" href="#" onclick="history.length > 1 ? history.back() : window.location = '/'">
+            Volver
+        </a>
+        <div class="usuariosquinielasnotsent">
+            <div class="header">ID</div>
+            <div class="header">USERNAME</div>
+            <div class="header">EMAIL</div>
+        {{#each usuarios}}
+            <div class="{{#if (isEven @index)}}tabla-datos{{else}}tabla-datos2{{/if}}">{{this.id}}</div>
+            <div class="{{#if (isEven @index)}}tabla-datos{{else}}tabla-datos2{{/if}}">{{this.user}}</div>
+            <div class="{{#if (isEven @index)}}tabla-datos{{else}}tabla-datos2{{/if}}">{{this.email}}</div>
+        {{/each}}
+        </div>
+    </body>
+</html>

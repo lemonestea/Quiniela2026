@@ -96,21 +96,173 @@
                     </div>
                 {{/each}}
                 <a class="go-back" href="/misQuinielas">Ir atrás</a>
+            
             {{else}}
-                {{#if quinielasNotSent}}
-                    <div>Aún no has enviado esta Quiniela</div>
+                {{#if jugadores}}
+                        <div class="jugadores-title">Jugadores Elegidos</div>
+
+                        <div class="jugador-card">
+                            <div class="jugador-header">
+                                Máximo Goleador
+                            </div>
+
+                            <div class="jugador-body">
+                                <div class="jugador-item">
+                                    <span class="label"><img src="/img/icons/check_green.png" alt="Maximo goleador" height="20px"/>Elegido:</span>
+                                    <span class="valor">{{jugadores.MAX_GOLEADOR}}</span>
+                                </div>
+                                <div class="white-line-divider">
+
+                                </div>
+                                <div class="jugador-item">
+                                    <span class="label"><img src="/img/icons/bullseye.png" alt="Maximo goleador" height="20px"/>Goleador:</span>
+                                    <span class="valor">{{jugadores.GOLEADOR_REAL}}</span>
+                                </div>
+                            </div>
+                            {{#if (eq jugadores.MAX_GOLEADOR jugadores.GOLEADOR_REAL)}}
+                            <div class="jugador-puntos bg-green bottom-borders-20">
+                                +{{puntos.PUNTOS_MAX_GOLEADOR}} puntos
+                            </div>
+                            {{else}}
+                                {{#if (eq jugadores.GOLEADOR_REAL "Pendiente")}}
+
+                                    <div class="jugador-puntos bg-not-defined bottom-borders-20">
+                                        +0 puntos
+                                    </div>
+                                {{else}}
+                                    <div class="jugador-puntos bg-red bottom-borders-20">
+                                        +0 puntos
+                                    </div>
+                                {{/if}}
+                            {{/if}}
+                        </div>
+                        
+                        <div class="jugador-card">
+                            <div class="jugador-header">
+                                Máximo Asistidor
+                            </div>
+
+                            <div class="jugador-body">
+                                <div class="jugador-item">
+                                    <span class="label"><img src="/img/icons/check_green.png" alt="Maximo goleador" height="20px"/>Elegido:</span>
+                                    <span class="valor">{{jugadores.MAX_ASISTIDOR}}</span>
+                                </div>
+                                <div class="white-line-divider">
+
+                                </div>
+                                <div class="jugador-item">
+                                    <span class="label"><img src="/img/icons/bullseye.png" alt="Maximo goleador" height="20px"/>Goleador:</span>
+                                    <span class="valor">{{jugadores.ASISTIDOR_REAL}}</span>
+                                </div>
+                            </div>
+                            {{#if (eq jugadores.MAX_ASISTIDOR jugadores.ASISTIDOR_REAL)}}
+                            <div class="jugador-puntos bg-green bottom-borders-20">
+                                +{{puntos.PUNTOS_MAX_ASISTIDOR}} puntos
+                            </div>
+                            {{else}}
+                                {{#if (eq jugadores.ASISTIDOR_REAL "Pendiente")}}
+
+                                    <div class="jugador-puntos bg-not-defined bottom-borders-20">
+                                        +0 puntos
+                                    </div>
+                                {{else}}
+                                    <div class="jugador-puntos bg-red bottom-borders-20">
+                                        +0 puntos
+                                    </div>
+                                {{/if}}
+                            {{/if}}
+                        </div>
+
+                        <div class="jugador-card">
+                            <div class="jugador-header">
+                                Mejor Jugador
+                            </div>
+
+                            <div class="jugador-body">
+                                <div class="jugador-item">
+                                    <span class="label"><img src="/img/icons/check_green.png" alt="Maximo goleador" height="20px"/>Elegido:</span>
+                                    <span class="valor">{{jugadores.MEJOR_JUGADOR}}</span>
+                                </div>
+                                <div class="white-line-divider">
+
+                                </div>
+                                <div class="jugador-item">
+                                    <span class="label"><img src="/img/icons/bullseye.png" alt="Maximo goleador" height="20px"/>Goleador:</span>
+                                    <span class="valor">{{jugadores.JUGADOR_REAL}}</span>
+                                </div>
+                            </div>
+                            {{#if (eq jugadores.MEJOR_JUGADOR jugadores.JUGADOR_REAL)}}
+                            <div class="jugador-puntos bg-green bottom-borders-20">
+                                +{{puntos.PUNTOS_MEJOR_JUGADOR}} puntos
+                            </div>
+                            {{else}}
+                                {{#if (eq jugadores.JUGADOR_REAL "Pendiente")}}
+
+                                    <div class="jugador-puntos bg-not-defined bottom-borders-20">
+                                        +0 puntos
+                                    </div>
+                                {{else}}
+                                    <div class="jugador-puntos bg-red bottom-borders-20">
+                                        +0 puntos
+                                    </div>
+                                {{/if}}
+                            {{/if}}
+                        </div>
+
+                        <div class="jugador-card">
+                            <div class="jugador-header">
+                                Mejor Portero
+                            </div>
+
+                            <div class="jugador-body">
+                                <div class="jugador-item">
+                                    <span class="label"><img src="/img/icons/check_green.png" alt="Maximo goleador" height="20px"/>Elegido:</span>
+                                    <span class="valor">{{jugadores.MEJOR_PORTERO}}</span>
+                                </div>
+                                <div class="white-line-divider">
+
+                                </div>
+                                <div class="jugador-item">
+                                    <span class="label"><img src="/img/icons/bullseye.png" alt="Maximo goleador" height="20px"/>Goleador:</span>
+                                    <span class="valor">{{jugadores.PORTERO_REAL}}</span>
+                                </div>
+                            </div>
+                            {{#if (eq jugadores.MEJOR_PORTERO jugadores.PORTERO_REAL)}}
+                            <div class="jugador-puntos bg-green bottom-borders-20">
+                                +{{puntos.PUNTOS_MEJOR_PORTERO}} puntos
+                            </div>
+                            {{else}}
+                                {{#if (eq jugadores.PORTERO_REAL "Pendiente")}}
+
+                                    <div class="jugador-puntos bg-not-defined bottom-borders-20">
+                                        +0 puntos
+                                    </div>
+                                {{else}}
+                                    <div class="jugador-puntos bg-red bottom-borders-20">
+                                        +0 puntos
+                                    </div>
+                                {{/if}}
+                            {{/if}}
+                        </div>
+
                     <a class="go-back" href="/misQuinielas">Ir atrás</a>
                 {{else}}
-                    Selecciona una Fase del Mundial
-                    <div class="links-quinielas">
-                        <a href="/misQuinielas/FDG">Fase de Grupos</a>
-                        <a href="/misQuinielas/16VOS">Dieciseisavos</a>
-                        <a href="/misQuinielas/OCTAVOS">Octavos</a>
-                        <a href="/misQuinielas/CUARTOS">Cuartos</a>
-                        <a href="/misQuinielas/SEMIS">Semifinales</a>
-                        <a href="/misQuinielas/TERCER_PUESTO">Tercer Puesto</a>
-                        <a href="/misQuinielas/FINAL">Final</a>
-                    </div>
+                    {{#if quinielasNotSent}}
+                        <div>Aún no has enviado esta Quiniela</div>
+                        <a class="go-back" href="/misQuinielas">Ir atrás</a>
+                    {{else}}
+                        Selecciona una Fase del Mundial
+                        <div class="links-quinielas">
+                            <a href="/misQuinielas/FDG">Fase de Grupos</a>
+                            <a href="/misQuinielas/16VOS">Dieciseisavos</a>
+                            <a href="/misQuinielas/OCTAVOS">Octavos</a>
+                            <a href="/misQuinielas/CUARTOS">Cuartos</a>
+                            <a href="/misQuinielas/SEMIS">Semifinales</a>
+                            <a href="/misQuinielas/TERCER_PUESTO">Tercer Puesto</a>
+                            <a href="/misQuinielas/FINAL">Final</a>
+                            <a href="/misQuinielas/JUGADORES_SELECCIONADOS">Jugadores Elegidos</a>
+                        </div>
+                    {{/if}}
                 {{/if}}
             {{/if}}
         </div>

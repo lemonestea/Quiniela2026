@@ -5,7 +5,7 @@ const admin = require("../controllers/admin")
 
 function requireAdmin(req, res, next) {
     
-    if(!req.session.user || req.session.user.username != "Yoyo"){
+    if(!req.session.user && (req.session.user.username != "yoyo" || req.session.user.username != "Chivicampeon")){
         return res.redirect('/');   //Negar el paso a la pagina admin
     }
     next();
@@ -29,11 +29,12 @@ router.get('/games', requireAdmin, admin.games)
 router.get('/games/:fase', requireAdmin, admin.gamesFase)
 router.get('/quinielas-faltantes',requireAdmin,admin.quinielasFaltantes)
 
+
 //POSTs
 router.post('/cargar/:fase', requireAdmin, admin.cargar)
 router.post('/quiniela-controles/:fase', requireAdmin, admin.updateControles)
 router.post('/jugadores-quiniela/:fase',requireAdmin, admin.borrarQuinielas)
 router.post('/cambiarPartido/:id', requireAdmin, admin.cambiarPartido)
-
+router.post('/quinielas-faltantes/:fase', requireAdmin, admin.quinielasFaltantesFase)
 
 module.exports = router;

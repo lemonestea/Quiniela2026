@@ -473,3 +473,31 @@ exports.quinielasFaltantes = (req,res) =>{
     fases.push({fase:"Octavos", codigo:"8VOS"});
     return res.render("admin/quinielasfaltantes",{fases: fases})
 }
+
+
+exports.quinielasFaltantesFase = (req,res) => {
+    const fase = req.params.fase;
+
+    getPlayersNotSendingQuiniela(fase, (usuarios) => {
+        return res.render("admin/quinielasfaltantesfase", { usuarios });
+    });
+};
+
+function getPlayersNotSendingQuiniela(fase, callback){
+    let query = `
+        SELECT u.id, u.user, u.email
+        FROM users u
+        WHERE NOT EXISTS (
+            SELECT 1
+            FROM bets b
+            INNER JOIN partidos p ON p.id = b.partido_id
+            WHERE b.user_id = u.id
+            AND p.fase = ?
+        );
+    `;
+    
+    db.query(query, [fase], (err, results) => {
+        if (err) return callback([]);
+        callback(results);
+    });
+}

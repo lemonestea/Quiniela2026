@@ -23,6 +23,7 @@ a{
 
 .links-dashboard{
     display: grid;
+    row-gap: 20px;
 }
 
 .links-commands{
@@ -107,7 +108,9 @@ input[type=submit]{
 }
 
 .control-quinielas>input[type=submit]{
-    background-color: rgb(0, 85, 127);
+    background-color: rgb(123, 0, 194);
+    border-radius: 30px;
+    padding:10px;
     color: white;
 }
 .quinielas-container{
@@ -206,4 +209,35 @@ select:focus {
     grid-column-start: 3;
     grid-column-end: 5;
     margin-top: 15px;
+}
+
+.header{
+    background-color: rgb(0, 0, 108);
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.tabla-datos{
+    background-color: rgb(71, 71, 71);
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    padding: 10px 0;
+}
+
+.tabla-datos2{
+    background-color: rgb(47, 47, 47);
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    padding: 10px 0;
+}
+
+.usuariosquinielasnotsent{
+    display: grid;
+    grid-template-columns: 15% 40% 45%;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
 }

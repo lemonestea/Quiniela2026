@@ -33,111 +33,115 @@
         </div>
         <div class="container bold">
         <div id="jugadores">
-            {{#if players_selected}}
-                
+                {{#if players_selected}}
+            <div id="partidos">
+                <h2>Partidos</h2>
+                <div class="colores-indicadores">
+                    <div class="verde"></div>
+                    <div class="azul"></div>
+                    <div class="gris"></div>
+                    <div class="texto-pequeno">Abierto</div>
+                    <div class="texto-pequeno">Enviado</div>
+                    <div class="texto-pequeno">Cerrado</div>
+                </div>
+                {{#if FDG_SENT}}
+                    <div class="azul enviado">Fase de Grupos</div>
+                {{else if FDG }}
+                    <a class="verde" href="/play/FDG">Fase de Grupos</a>
+                {{else}}
+                    <div class="gris cerrado">Fase de Grupos</div>
+                {{/if}}
+
+                {{#if R32_SENT}}
+                    <div class="azul enviado">Dieciseisavos</div>
+                {{else if R32 }}
+                    <a class="verde" href="/play/16VOS">Dieciseisavos</a>
+                {{else}}
+                    <div class="gris cerrado">Dieciseisavos</div>
+                {{/if}}
+
+                {{#if R16_SENT}}
+                    <div class="azul enviado">Octavos</div>
+                {{else if R16 }}
+                    <a class="verde" href="/play/OCTAVOS">Octavos</a>
+                {{else}}
+                    <div class="gris cerrado">Octavos</div>
+                {{/if}}
+
+                {{#if R8_SENT}}
+                    <div class="azul enviado">Cuartos</div>
+                {{else if R8 }}
+                    <a class="verde" href="/play/CUARTOS">Cuartos</a>
+                {{else}}
+                    <div class="gris cerrado">Cuartos</div>
+                {{/if}}
+
+                {{#if SF_SENT}}
+                    <div class="azul enviado">Semifinales</div>
+                {{else if SF }}
+                    <a class="verde" href="/play/SEMIS">Semifinales</a>
+                {{else}}
+                    <div class="gris cerrado">Semifinales</div>
+                {{/if}}
+
+                {{#if TP_SENT}}
+                    <div class="azul enviado">Tercer Puesto</div>
+                {{else if TP }}
+                    <a class="verde" href="/play/TERCER_PUESTO">Tercer Puesto</a>
+                {{else}}
+                    <div class="gris cerrado">Tercer Puesto</div>
+                {{/if}}
+
+                {{#if F_SENT}}
+                    <div class="azul enviado">Final</div>
+                {{else if F }}
+                    <a class="verde" href="/play/FINAL">Final</a>
+                {{else}}
+                    <div class="gris cerrado">Final</div>
+                {{/if}}
+
+            </div>
             {{else}} 
                 <h2>Elige a tus Jugadores</h2>
                 <form id="seleccionar_jugadores" action="/load_max_goleador" method="POST">
-                    <select class="select_player" name="maximo_goleador" id="maximo_goleador">
+                    <div>Selecciona al Máximo Goleador</div>
+                    <div>Selecciona al Máximo Asistidor</div>
+                    <select class="select_player" name="maximo_goleador" id="maximo_goleador" required>
                             <option disabled selected value="">Máximo Goleador</option>
                         {{#each players}}
                             <option value="{{id}}">{{name}} ({{short_name}})</option>
                         {{/each}}
                     </select>
                     
-                    <select class="select_player" name="maximo_asistidor" id="maximo_asistidor">
+                    <select class="select_player" name="maximo_asistidor" id="maximo_asistidor" required>
                         <option disabled selected value="">Máximo Asistidor</option>
                         {{#each players}}
                             <option value="{{id}}">{{name}} ({{short_name}})</option>
                         {{/each}}
                     </select>
-
-                    <select class="select_player" name="mejor_jugador" id="mejor_jugador">
+                    <div style="height: 20px;"></div><div></div>
+                    <div>Selecciona al Mejor Jugador</div>
+                    <div>Selecciona al Mejor Portero</div>
+                    <select class="select_player" name="mejor_jugador" id="mejor_jugador" required>
                         <option disabled selected value="">Mejor Jugador</option>
                         {{#each players}}
                             <option value="{{this.id}}">{{this.name}} ({{short_name}})</option>
                         {{/each}}
                     </select>
 
-                    <select class="select_player" name="mejor_portero" id="mejor_portero">
+                    <select class="select_player" name="mejor_portero" id="mejor_portero" required>
                         <option disabled selected value="">Mejor Portero</option>
                         {{#each porteros}}
                             <option value="{{this.id}}">{{this.name}} ({{short_name}})</option>
                         {{/each}}
                     </select>
-                 
-                    <input id="send-jugadores" type="submit" value="Enviar">
+
+                    <input style="margin-top: 30px;" id="send-jugadores" type="submit" value="Enviar">
                 </form>
             {{/if}}
         </div>
 
-        <div id="partidos">
-            <h2>Partidos</h2>
-            <div class="colores-indicadores">
-                <div class="verde"></div>
-                <div class="azul"></div>
-                <div class="gris"></div>
-                <div class="texto-pequeno">Abierto</div>
-                <div class="texto-pequeno">Enviado</div>
-                <div class="texto-pequeno">Cerrado</div>
-            </div>
-            {{#if FDG_SENT}}
-                <div class="azul enviado">Fase de Grupos</div>
-            {{else if FDG }}
-                <a class="verde" href="/play/FDG">Fase de Grupos</a>
-            {{else}}
-                <div class="gris cerrado">Fase de Grupos</div>
-            {{/if}}
-
-            {{#if R32_SENT}}
-                <div class="azul enviado">Dieciseisavos</div>
-            {{else if R32 }}
-                <a class="verde" href="/play/16VOS">Dieciseisavos</a>
-            {{else}}
-                <div class="gris cerrado">Dieciseisavos</div>
-            {{/if}}
-
-            {{#if R16_SENT}}
-                <div class="azul enviado">Octavos</div>
-            {{else if R16 }}
-                <a class="verde" href="/play/OCTAVOS">Octavos</a>
-            {{else}}
-                <div class="gris cerrado">Octavos</div>
-            {{/if}}
-
-            {{#if R8_SENT}}
-                <div class="azul enviado">Cuartos</div>
-            {{else if R8 }}
-                <a class="verde" href="/play/CUARTOS">Cuartos</a>
-            {{else}}
-                <div class="gris cerrado">Cuartos</div>
-            {{/if}}
-
-            {{#if SF_SENT}}
-                <div class="azul enviado">Semifinales</div>
-            {{else if SF }}
-                <a class="verde" href="/play/SEMIS">Semifinales</a>
-            {{else}}
-                <div class="gris cerrado">Semifinales</div>
-            {{/if}}
-
-            {{#if TP_SENT}}
-                <div class="azul enviado">Tercer Puesto</div>
-            {{else if TP }}
-                <a class="verde" href="/play/TERCER_PUESTO">Tercer Puesto</a>
-            {{else}}
-                <div class="gris cerrado">Tercer Puesto</div>
-            {{/if}}
-
-            {{#if F_SENT}}
-                <div class="azul enviado">Final</div>
-            {{else if F }}
-                <a class="verde" href="/play/FINAL">Final</a>
-            {{else}}
-                <div class="gris cerrado">Final</div>
-            {{/if}}
-
-        </div>
+        
 
         </div>
         <script>
@@ -162,7 +166,7 @@
             select.style.border = "2px solid red";
           }
         } else {
-          select.style.border = "";
+          select.style.border = "2px solid green";
         }
       });
 
@@ -172,6 +176,8 @@
       }
     });
   });
+
+
 
 </script>
 

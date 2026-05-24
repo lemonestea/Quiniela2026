@@ -47,7 +47,11 @@
                     <a href="/teams"><img src="/img/icons/teams.png" alt="teams"><label>Equipos</label></a>
                     <a href="/profile"><img src="/img/icons/perfil.png" alt="perfil"><label>Perfil</label></a>
                 </div>
-                {{#if (eq username 'Yoyo')}}
+                {{#if (eq username 'yoyo')}}
+                    <a class="admin" href="/admin-amrdq12s">ADMIN</a>
+                {{/if}}
+
+                {{#if (eq username 'Chivicampeon')}}
                     <a class="admin" href="/admin-amrdq12s">ADMIN</a>
                 {{/if}}
                 
@@ -60,6 +64,7 @@
                     <label for="fav_team">Elige tu equipo favorito</label>
                     <form action="/loadfavteam" method="POST">
                         <select name="fav_team" id="fav_team">
+                            <option disabled selected value="">Selecciona un equipo</option>
                             {{#each teams}}
                                 <option value="{{id}}">{{name}}</option>
                             {{/each}}
@@ -68,12 +73,12 @@
                     </form>
                 {{/if}}
                 <div class="land-partidos-container">
-                    <h2 style="font-size: 14px;margin:0;">PROX. PARTIDOS</h2>
+                    <h2 style="font-size: 14px;margin:0;">PRÓX. PARTIDOS</h2>
                 {{#each partidos}}
                     <div class="land-partidos">
-                        <div class="land-team"><img src="/img/flags/{{toLowerCase this.team1_short_name}}.png" />{{this.team1_name}}</div>
+                        <div class="land-team"><img src="/img/flags/{{toLowerCase this.team1_short_name}}.png" onerror="this.src='/img/flags/por_definir.png';" />{{this.team1_name}}</div>
                         <div>VS</div>
-                        <div class="land-team"><img src="/img/flags/{{toLowerCase this.team2_short_name}}.png" />{{this.team2_name}}</div>
+                        <div class="land-team"><img src="/img/flags/{{toLowerCase this.team2_short_name}}.png" onerror="this.src='/img/flags/por_definir.png';" />{{this.team2_name}}</div>
                     </div>
                 {{/each}}
                 </div>

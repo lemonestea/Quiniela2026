@@ -58,6 +58,61 @@ exports.showQuiniela = (req, res) => {
 
 }
 
+exports.showJugadoresElegidos = (req, res) =>{
+    var puntos = {
+        "PUNTOS_MAX_GOLEADOR":puntos_por_fase.PUNTOS_MAX_GOLEADOR, 
+        "PUNTOS_MAX_ASISTIDOR":puntos_por_fase.PUNTOS_MAX_ASISTIDOR,
+        "PUNTOS_MEJOR_JUGADOR":puntos_por_fase.PUNTOS_MEJOR_JUGADOR,
+        "PUNTOS_MEJOR_PORTERO":puntos_por_fase.PUNTOS_MEJOR_PORTERO};
+    const user_id = req.session.user.id;
+    let sql = ` SELECT
+                    IFNULL(mg.name,'Por elegir') AS MAX_GOLEADOR,
+                    IFNULL(ma.name,'Por elegir') AS MAX_ASISTIDOR,
+                    IFNULL(mj.name,'Por elegir') AS MEJOR_JUGADOR,
+                    IFNULL(mp.name,'Por elegir') AS MEJOR_PORTERO,
+
+                    IFNULL(mg2.name,'Pendiente') AS GOLEADOR_REAL,
+                    IFNULL(ma2.name,'Pendiente') AS ASISTIDOR_REAL,
+                    IFNULL(mj2.name,'Pendiente') AS JUGADOR_REAL,
+                    IFNULL(mp2.name,'Pendiente') AS PORTERO_REAL
+
+                FROM (SELECT 1) base
+
+
+                LEFT JOIN selected_players sp 
+                    ON sp.user_id = ?
+
+                LEFT JOIN players mg ON sp.maximo_goleador = mg.id
+                LEFT JOIN players ma ON sp.maximo_asistidor = ma.id
+                LEFT JOIN players mj ON sp.mejor_jugador = mj.id
+                LEFT JOIN players mp ON sp.mejor_portero = mp.id
+
+
+                LEFT JOIN players_awarded pa_g 
+                    ON pa_g.titulo = 'MAX_GOLEADOR'
+                LEFT JOIN players_awarded pa_a 
+                    ON pa_a.titulo = 'MAX_ASISTIDOR'
+                LEFT JOIN players_awarded pa_j 
+                    ON pa_j.titulo = 'MEJOR_JUGADOR'
+                LEFT JOIN players_awarded pa_p 
+                    ON pa_p.titulo = 'MEJOR_PORTERO'
+
+                LEFT JOIN players mg2 ON pa_g.player_id = mg2.id
+                LEFT JOIN players ma2 ON pa_a.player_id = ma2.id
+                LEFT JOIN players mj2 ON pa_j.player_id = mj2.id
+                LEFT JOIN players mp2 ON pa_p.player_id = mp2.id;`;
+    db.query(sql,[user_id], (error,jugadores)=>{
+        if(error){
+            console.log(error);
+            return res.render("error");
+        }
+        return res.render('quinielas',{jugadores:jugadores[0], puntos: puntos});
+    });
+
+
+    
+}
+
 function calcularPuntos(quiniela){
     
     if (quiniela.r_goles1 === null || quiniela.r_goles2 === null) {
@@ -158,3 +213,4 @@ function obtenerGanador(goles1, goles2, penales1, penales2) {
     // Empate total
     return 'E';
 }
+
