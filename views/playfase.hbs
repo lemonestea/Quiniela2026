@@ -25,6 +25,8 @@
 
             // ✅ Bloqueo total de: +, -, e, E, flechas arriba/abajo, letras, símbolos
             function bloquearTeclasInvalidas(e) {
+                
+                if (e.key === "Enter") return;
                 const invalidKeys = ["+", "-", "e", "E", "ArrowUp", "ArrowDown"];
 
                 if (invalidKeys.includes(e.key)) {
