@@ -45,7 +45,8 @@
                     <div class="texto-pequeno">Cerrado</div>
                 </div>
                 {{#if FDG_SENT}}
-                    <div class="azul enviado">Fase de Grupos</div>
+                    {{!-- <div class="azul enviado">Fase de Grupos</div> --}}
+                    <a href="/misQuinielas/FDG" class="azul enviado">Fase de Grupos</a>
                 {{else if FDG }}
                     <a class="verde" href="/play/FDG">Fase de Grupos</a>
                 {{else}}
