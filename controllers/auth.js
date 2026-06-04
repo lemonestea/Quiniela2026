@@ -166,7 +166,10 @@ function writeRegisterLog(user){
 }
 
 exports.logout = (req, res) => {
-    writeLogingLog(req.session.user.username, "Cerró")
+    if(req.session){
+        writeLogingLog(req.session.user.username, "Cerró")
+    }
+    
 
     req.session.destroy((err) => {
         if (err) {
