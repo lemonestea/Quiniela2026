@@ -188,6 +188,7 @@ exports.renderFasePlay = (req, res) => {
 
 exports.sendQuiniela = (req, res) => {
     const user_id = req.session.user['id'];
+    const name = req.session.user.username;
     const resultados = req.body;
     
     let log_string = "";
@@ -215,7 +216,7 @@ exports.sendQuiniela = (req, res) => {
                     console.log(error);
                 }            
             });
-            log_string += "Player ID: " + user_id + " Game ID: " + partido + 
+            log_string += "Player ID: " + user_id + " Jugador: " + name +  " Game ID: " + partido + 
             " GOL1: " + goles1 + " GOL2: " + goles2 + 
             " PEN1: " + penales1 + " PEN2: " + penales2 + "\n";
 
@@ -239,7 +240,7 @@ exports.sendQuiniela = (req, res) => {
             }            
         });
 
-        log_string += "Player ID: " + user_id + " Game ID: " + partido + 
+        log_string += "Player ID: " + user_id + " Jugador: " + name + " Game ID: " + partido + 
             " GOL1: " + goles1 + " GOL2: " + goles2 + 
             " PEN1: " + penales1 + " PEN2: " + penales2 + "\n";
     }
