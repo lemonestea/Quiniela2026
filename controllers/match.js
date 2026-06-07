@@ -55,7 +55,7 @@ exports.showMatch = (req, res)=> {
         results[0].puntos_por_goles = puntos[0]
         results[0].puntos_por_resultado = puntos[1]
         results[0].puntos_por_penales = puntos[2]
-
+        // console.log(results)
         return res.render("match",{data: results[0]})
     })
     

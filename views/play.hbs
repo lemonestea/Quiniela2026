@@ -106,35 +106,93 @@
                 <form id="seleccionar_jugadores" action="/load_max_goleador" method="POST">
                     <div>Selecciona al Máximo Goleador</div>
                     <div>Selecciona al Máximo Asistidor</div>
-                    <select class="select_player" name="maximo_goleador" id="maximo_goleador" required>
-                            <option disabled selected value="">Máximo Goleador</option>
-                        {{#each players}}
-                            <option value="{{id}}">{{name}} ({{short_name}})</option>
-                        {{/each}}
-                    </select>
+                    <div class="player-selector">
+                        <input type="text"
+                            class="buscar-jugador"
+                            placeholder="Buscar máximo goleador..."
+                            autocomplete="off">
+
+                        <input type="hidden"
+                            name="maximo_goleador"
+                            class="player-id"
+                            required>
+
+                        <div class="resultados">
+                            {{#each players}}
+                                <div class="jugador" data-id="{{id}}">
+                                    {{name}} ({{short_name}})
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
                     
-                    <select class="select_player" name="maximo_asistidor" id="maximo_asistidor" required>
-                        <option disabled selected value="">Máximo Asistidor</option>
-                        {{#each players}}
-                            <option value="{{id}}">{{name}} ({{short_name}})</option>
-                        {{/each}}
-                    </select>
+                   
+                   <div class="player-selector">
+                        <input type="text"
+                            class="buscar-jugador"
+                            placeholder="Buscar máximo asistidor..."
+                            autocomplete="off">
+
+                        <input type="hidden"
+                            name="maximo_asistidor"
+                            class="player-id"
+                            required>
+
+                        <div class="resultados">
+                            {{#each players}}
+                                <div class="jugador" data-id="{{id}}">
+                                    {{name}} ({{short_name}})
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+
+
+
                     <div style="height: 20px;"></div><div></div>
                     <div>Selecciona al Mejor Jugador</div>
                     <div>Selecciona al Mejor Portero</div>
-                    <select class="select_player" name="mejor_jugador" id="mejor_jugador" required>
-                        <option disabled selected value="">Mejor Jugador</option>
-                        {{#each players}}
-                            <option value="{{this.id}}">{{this.name}} ({{short_name}})</option>
-                        {{/each}}
-                    </select>
 
-                    <select class="select_player" name="mejor_portero" id="mejor_portero" required>
-                        <option disabled selected value="">Mejor Portero</option>
-                        {{#each porteros}}
-                            <option value="{{this.id}}">{{this.name}} ({{short_name}})</option>
-                        {{/each}}
-                    </select>
+                    <div class="player-selector">
+                        <input type="text"
+                            class="buscar-jugador"
+                            placeholder="Buscar mejor jugador..."
+                            autocomplete="off">
+
+                        <input type="hidden"
+                            name="mejor_jugador"
+                            class="player-id"
+                            required>
+
+                        <div class="resultados">
+                            {{#each players}}
+                                <div class="jugador" data-id="{{id}}">
+                                    {{name}} ({{short_name}})
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+
+
+                    <div class="player-selector">
+                        <input type="text"
+                            class="buscar-jugador"
+                            placeholder="Buscar mejor portero..."
+                            autocomplete="off">
+
+                        <input type="hidden"
+                            name="mejor_portero"
+                            class="player-id"
+                            required>
+
+                        <div class="resultados">
+                            {{#each porteros}}
+                                <div class="jugador" data-id="{{id}}">
+                                    {{name}} ({{short_name}})
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
 
                     <input style="margin-top: 30px;" id="send-jugadores" type="submit" value="Enviar">
                 </form>
@@ -145,41 +203,109 @@
 
         </div>
         <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('seleccionar_jugadores');
-    console.log(form)
-    if (!form) {
-      console.warn("Formulario no encontrado.");
-      return;
-    }
+            document.addEventListener('DOMContentLoaded', function () {
 
-    form.addEventListener('submit', function(event) {
-      const campos = ['maximo_goleador', 'maximo_asistidor', 'mejor_jugador', 'mejor_portero'];
-      let formValido = true;
+            const form = document.getElementById('seleccionar_jugadores');
 
-      campos.forEach(function(idCampo) {
-        const select = document.getElementById(idCampo);
-        
-        if (!select || select.value === "") {
-          formValido = false;
-          if (select) {
-            select.style.border = "2px solid red";
-          }
-        } else {
-          select.style.border = "2px solid green";
-        }
-      });
+            if (!form) {
+                console.warn("Formulario no encontrado.");
+                return;
+            }
 
-      if (!formValido) {
-        event.preventDefault();
-        alert("Por favor, selecciona una opción válida en todos los campos.");
-      }
-    });
-  });
+            /* =========================
+                VALIDACIÓN DEL FORMULARIO
+            ========================== */
+            form.addEventListener('submit', function(event) {
+
+                const campos = [
+                'maximo_goleador',
+                'maximo_asistidor',
+                'mejor_jugador',
+                'mejor_portero'
+                ];
+
+                let formValido = true;
+
+                campos.forEach(nombre => {
+
+                const inputHidden = document.querySelector(`input[name="${nombre}"]`);
+                const wrapper = inputHidden?.closest('.player-selector');
+
+                if (!inputHidden || !inputHidden.value) {
+                    formValido = false;
+
+                    if (wrapper) {
+                    wrapper.style.border = "2px solid red";
+                    }
+
+                } else {
+                    if (wrapper) {
+                    wrapper.style.border = "2px solid green";
+                    }
+                }
+
+                });
+
+                if (!formValido) {
+                event.preventDefault();
+                alert("Por favor, selecciona una opción válida en todos los campos.");
+                }
+            });
 
 
+            /* =========================
+                AUTOCOMPLETE PERSONALIZADO
+            ========================== */
+            document.querySelectorAll('.player-selector').forEach(selector => {
 
-</script>
+                const input = selector.querySelector('.buscar-jugador');
+                const hidden = selector.querySelector('.player-id');
+                const resultados = selector.querySelector('.resultados');
+                const jugadores = resultados.querySelectorAll('.jugador');
+
+                // Mostrar lista al enfocar
+                input.addEventListener('focus', () => {
+                resultados.style.display = 'block';
+                });
+
+                input.addEventListener('blur', () => {
+                setTimeout(() => {
+                    resultados.style.display = 'none';
+                }, 150);
+                });
+
+                // Filtrar jugadores
+                input.addEventListener('input', () => {
+                const texto = input.value.toLowerCase();
+
+                resultados.style.display = 'block';
+
+                jugadores.forEach(jugador => {
+                    jugador.style.display =
+                    jugador.textContent.toLowerCase().includes(texto)
+                        ? 'block'
+                        : 'none';
+                });
+                });
+
+                // Selección de jugador
+                jugadores.forEach(jugador => {
+                jugador.addEventListener('click', () => {
+
+                    input.value = jugador.textContent.trim();
+                    hidden.value = jugador.dataset.id;
+
+                    resultados.style.display = 'none';
+
+                    // limpiar errores visuales al seleccionar
+                    selector.style.border = "2px solid green";
+                });
+                });
+
+            });
+
+            });
+            </script>
 
     </body>
 </html>

@@ -118,6 +118,16 @@
                 <span class="bg-lightgrey red bold width-100 pd-10">+0</span>
                 
                 {{/if}}
+
+                {{#if (isNotNull data.b_penales1)}}
+                    {{#if (eq data.b_ganador data.r_ganador)}}
+
+                        <span class="bg-grey green bold width-100 pd-10">Ganador en penales</span>
+                        <div class="bg-grey width-100 pd-10">{{data.b_ganador}}</div>
+                        <span class="bg-grey green bold width-100 pd-10">+{{data.puntos_por_penales}}</span>
+
+                    {{/if}}
+                {{/if}}
         </div>
         <a href="/misQuinielas/{{data.fase}}" class="go-back">Volver</a>
     </body>
