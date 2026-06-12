@@ -1159,6 +1159,7 @@ input[type=number]:focus{
     align-items: center;
     border: 2px solid grey;
     font-weight: bold;
+    font-size: 15px;
 }
 
 .quiniela{

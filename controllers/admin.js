@@ -470,7 +470,11 @@ exports.quinielasFaltantes = (req,res) =>{
 
     fases.push({fase:"Fase de grupos", codigo:"FDG"});
     fases.push({fase:"Dieciseisavos", codigo:"16VOS"});
-    fases.push({fase:"Octavos", codigo:"8VOS"});
+    fases.push({fase:"Octavos", codigo:"OCTAVOS"});
+    fases.push({fase:"Cuartos", codigo:"CUARTOS"});
+    fases.push({fase:"Semis", codigo:"SEMIS"});
+    fases.push({fase:"Tercer puesto", codigo:"TERCER_PUESTO"});
+    fases.push({fase:"Final", codigo:"FINAL"});
     return res.render("admin/quinielasfaltantes",{fases: fases})
 }
 

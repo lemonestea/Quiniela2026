@@ -52,7 +52,7 @@ function checkIfQuinielaIsSent(req, res, next) {
 router.get('/', homeController.renderHomePage)
 
 router.get('/register', (req,res) =>{
-    res.render('register')
+    res.render('login')
 })
 
 router.get('/login', (req,res) =>{

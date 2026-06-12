@@ -32,7 +32,7 @@
                     <ul class="menu-links">
                         <li><a href="/">Inicio</a></li>
                         <li><a href="/login">Login</a></li>
-                        <li><a href="/register">Registrarse</a></li>
+                        {{!-- <li><a href="/register">Registrarse</a></li> --}}
                     </ul>
                 {{/if}}
             
@@ -108,10 +108,10 @@
                                     <img src="/img/icons/perfil.png"/>
                                     Iniciar sesión
                                 </a>
-                                <a class="home-links" href="/register">
+                                {{!-- <a class="home-links" href="/register">
                                 <img src="/img/icons/plus_sign.png"/>
                                     Registrarse
-                                </a>
+                                </a> --}}
                                 <a class="forgot-password" href="/forgotpassword">Olvidé mi contraseña</a>
                             </div>
                             
@@ -149,7 +149,7 @@
                     }
 
                     // 🔹 Configura la fecha objetivo (Ejemplo: 14 de junio de 2026 - Inicio del Mundial)
-                    const mundialFecha = new Date("June 11, 2026 00:00:00").getTime();
+                    const mundialFecha = new Date("June 11, 2026 21:00:00").getTime();
                     startCountdown(mundialFecha);
                     </script>    
                 </div>
