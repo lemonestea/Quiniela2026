@@ -121,11 +121,11 @@
 
                 {{#if (isNotNull data.b_penales1)}}
                     {{#if (eq data.b_ganador data.r_ganador)}}
-
+                    {{#if (isNotNull data.r_penales1)}}
                         <span class="bg-grey green bold width-100 pd-10">Ganador en penales</span>
                         <div class="bg-grey width-100 pd-10">{{data.b_ganador}}</div>
                         <span class="bg-grey green bold width-100 pd-10">+{{data.puntos_por_penales}}</span>
-
+                    {{/if}}
                     {{/if}}
                 {{/if}}
         </div>
