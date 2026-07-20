@@ -1306,6 +1306,7 @@ input[type=number]:focus{
     font-weight: bold;
     box-shadow: 0 5px 10px 5px black;
     width: 40%;
+    max-width: 200px;
     text-align: center;
 }
 

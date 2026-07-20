@@ -245,3 +245,12 @@ select:focus {
 .bg-pink{
     background-color: rgb(161, 0, 148);
 }
+
+.link_admin{
+    margin: 10px 0;
+    border: 1px solid white;
+    width:fit-content;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
